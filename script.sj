@@ -110,14 +110,6 @@ function Start(VideoQuality) {
   return video_file_path
 }
 
-function yy() {
-  // var p = "C:\\temp\\1.txt"
-  // Log.Message(aqFile.Exists(p))
-  Start()
-  Stop()
-}
-
-
 function Stop() {
   Indicator.Hide()
   var isVLCExists = Sys.WaitProcess(proc_name, timeout_minimum).Exists
