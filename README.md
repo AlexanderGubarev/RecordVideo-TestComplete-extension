@@ -20,10 +20,10 @@ Sometimes it's realy difficult to understand what happens during the nightly tes
 1) Run the build.bat file.
 2) Copy the file RecordVideo.tcx from Output folder to the x86 folder of TestComplete or TestExecute:
 .\Bin\Extensions\ScriptExtensions\
-TestComplete example:
-<i>C:\Program Files (x86)\SmartBear\TestComplete 12\Bin\Extensions\ScriptExtensions</i>
-TestExecute example:
-<i>C:\Program Files (x86)\SmartBear\TestExecute 12\Bin\Extensions\ScriptExtensions</i>
+TestComplete example:<br/>
+<i>C:\Program Files (x86)\SmartBear\TestComplete 12\Bin\Extensions\ScriptExtensions</i><br/>
+TestExecute example:<br/>
+<i>C:\Program Files (x86)\SmartBear\TestExecute 12\Bin\Extensions\ScriptExtensions</i><br/>
 4) Install the <a href="https://www.videolan.org/vlc/index.html">VLC media player</a>
 3) Launch product and use the extension as you want.
 
