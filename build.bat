@@ -2,8 +2,8 @@
     set EXTENSIONNAME=RecordVideo
     set TEMPDIR=%~dp0Temp
     set FILETOZIP1=description.xml
-    set FILETOZIP2=VideoStart-16.png
-    set FILETOZIP3=VideoStop-16.png
+    set FILETOZIP2=img\VideoStart-16.png
+    set FILETOZIP3=img\VideoStop-16.png
     set FILETOZIP4=script.sj
     set OUTPUTFOLDER=%~dp0Output
     set OUTPUTFILE=%OUTPUTFOLDER%\%EXTENSIONNAME%
@@ -28,4 +28,3 @@
     rename "%OUTPUTFILE%.zip" %EXTENSIONNAME%.tcx
 @ECHO *******************************************
 @ECHO      ZIP Completed
-pause
