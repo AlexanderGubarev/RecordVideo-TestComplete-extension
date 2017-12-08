@@ -26,7 +26,7 @@ var Quality = video_normal.name //current video quality
 var isStarted = false; //current recording state
 var video_file_path = "" //full path to output video
 
-var messages = {
+var logMessages = {
   noRecorder: {
     message:   "Unable to record video. Please check that VLC video player is installed.",
     messageEx: "<p>You can download necessary VLC video player here:<br/><a href='%s' target='_blank'>%s</a></p>"
@@ -55,27 +55,18 @@ var messages = {
     message:   "Something was wrong during the recording process. Please see Additional Information.",
     messageEx: "Please try to launch the player manually with command line:\r\n\r\n\"%s\" %s"
   },
-
+  recWasTerminated: {
+    message:   "The player process was terminated forcely because of timeout for video encoding.",
+    messageEx: "Please try to record smaller video."
+  }
 };
 
-/*
-	Text constants
-*/
+var messages = {
+  encodingInProgress:  "Encoding the video file...",
+  startDescription:    "Start video recording. You can find recorded video in Logs folder.",
+  stopDescription:     "Stop video recording. You can find recorded video in Logs folder."
+};
 
-
-var msg_terminated =
-  "The player process was terminated forcely because of timeout for video encoding."
-var msg_terminated_additional =
-  "Please try to record smaller video."
-
-var ind_encoding =
-  "Encoding the video file..."
-
-var desc_KDT_start =
-  "Start video recording. You can find recorded video in Logs folder."
-
-var desc_KDT_stop =
-  "Stop video recording. You can find recorded video in Logs folder."
 
 /*
 	Main functions
@@ -87,7 +78,7 @@ function Start(VideoQuality) {
   Indicator.Show()
 
   if (isVLCExists) {
-    Log.Warning(messages.recStartFail.message, aqString.Format(messages.recStartFail.messageEx, proc_name))
+    Log.Warning(logMessages.recStartFail.message, aqString.Format(logMessages.recStartFail.messageEx, proc_name))
     return
   }
 
@@ -99,13 +90,13 @@ function Start(VideoQuality) {
     createCursor()
     isStarted = true;
     LaunchRecording()
-    Log.Message(messages.recStartOk.message, aqString.Format(messages.recStartOk.messageEx, Quality, video_file_path));
+    Log.Message(logMessages.recStartOk.message, aqString.Format(logMessages.recStartOk.messageEx, Quality, video_file_path));
   }
   else {
     var pmHigher = 300
     var attr = Log.CreateNewAttributes();
     attr.ExtendedMessageAsPlainText = false;
-    Log.Warning(messages.noRecorder.message, aqString.Format(messages.noRecorder.messageEx, website, website), pmHigher, attr)
+    Log.Warning(logMessages.noRecorder.message, aqString.Format(logMessages.noRecorder.messageEx, website, website), pmHigher, attr)
   }
   return video_file_path
 }
@@ -124,9 +115,9 @@ function Stop() {
   Indicator.Show()
 
   if (!isVLCExists)
-    Log.Warning(messages.recStopFail.message, messages.recStopFail.messageEx)
+    Log.Warning(logMessages.recStopFail.message, logMessages.recStopFail.messageEx)
   else if (!isStarted) {
-    Log.Warning(messages.recStopFailNotStarted.message, aqString.Format(messages.recStopFailNotStarted.messageEx, proc_name))
+    Log.Warning(logMessages.recStopFailNotStarted.message, aqString.Format(logMessages.recStopFailNotStarted.messageEx, proc_name))
   }
   else {
     StopRecording()
@@ -134,12 +125,12 @@ function Stop() {
     for (var i = 0; i < 20; i++) {
       if (aqFile.Exists(aqString.Unquote(video_file_path)))
         break
-      Delay(timeout_minimum, ind_encoding)
+      Delay(timeout_minimum, messages.encodingInProgress);
     }
     if (aqFile.Exists(aqString.Unquote(video_file_path)))
-      Log.Link(video_file_path, messages.recStopOk.message, aqString.Format(messages.recStopOk.messageEx, video_file_path))
+      Log.Link(video_file_path, logMessages.recStopOk.message, aqString.Format(logMessages.recStopOk.messageEx, video_file_path))
     else
-      Log.Warning(messages.recUnexpectedError.message, aqString.Format(messages.recUnexpectedError.messageEx, proc_name, getVLCPath(), prepareStartParamsString()))
+      Log.Warning(logMessages.recUnexpectedError.message, aqString.Format(logMessages.recUnexpectedError.messageEx, proc_name, getVLCPath(), prepareStartParamsString()))
   }
   return video_file_path
 }
@@ -224,7 +215,7 @@ function StopRecording() {
     time += timeout_minimum
     if (time >= vlc_closing_timeout) {
       proc.Terminate()
-      Log.Warning(msg_terminated, msg_terminated_additional)
+      Log.Warning(logMessages.recWasTerminated.message, logMessages.recWasTerminated.messageEx)
     }
   }
   Log.Enabled = true
@@ -346,7 +337,7 @@ function StartRecording_OnCreate(Data, Parameters) {
 }
 
 function StartRecording_GetDescription(Data) {
-  return desc_KDT_start
+  return messages.startDescription;
 }
 
 function StartRecording_OnExecute(Data, VideoQuality) {
@@ -366,7 +357,7 @@ function StopRecording_OnCreate(Data, Parameters) {
 }
 
 function StopRecording_GetDescription(Data) {
-  return desc_KDT_stop
+  return messages.stopDescription;
 }
 
 function StopRecording_OnExecute(Data, Parameters) {
