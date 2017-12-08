@@ -17,15 +17,16 @@ Sometimes it's realy difficult to understand what happens during the nightly tes
 
 # Installation
 
-1) Run the build.bat file.
-2) Copy the file RecordVideo.tcx from Output folder to the x86 folder of TestComplete or TestExecute:
+1) Download the repository files.
+2) Run the build.bat file.
+3) Copy the file RecordVideo.tcx from Output folder to the x86 folder of TestComplete or TestExecute:
 .\Bin\Extensions\ScriptExtensions\
-TestComplete example:
-<i>C:\Program Files (x86)\SmartBear\TestComplete 12\Bin\Extensions\ScriptExtensions</i>
-TestExecute example:
-<i>C:\Program Files (x86)\SmartBear\TestExecute 12\Bin\Extensions\ScriptExtensions</i>
+TestComplete example:<br/>
+<i>C:\Program Files (x86)\SmartBear\TestComplete 12\Bin\Extensions\ScriptExtensions</i><br/>
+TestExecute example:<br/>
+<i>C:\Program Files (x86)\SmartBear\TestExecute 12\Bin\Extensions\ScriptExtensions</i><br/>
 4) Install the <a href="https://www.videolan.org/vlc/index.html">VLC media player</a>
-3) Launch product and use the extension as you want.
+5) Launch product and use the extension as you want.
 
 # How to use it
 You can use the extension in your KeywordTest or sript. In both ways there is only one parameter for video recording, <i>VideoQuality</i> - and it can be <i>"Low"</i>, <i>"Normal"</i>, <i>"High"</i>. If parameter is ommited video will be recorded with <i>"Normal"</i> quality. Notice that the result video file size depends not only on <i>VideoQuality</i> parameter but also on how long the video is and the screen resolution.
