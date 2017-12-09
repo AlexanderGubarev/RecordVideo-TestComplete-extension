@@ -2,8 +2,11 @@
 	Constants
 */
 var website = "https://www.videolan.org/"
-var proc_name = "vlc"
 var reg_install_dir = "VideoLAN\\VLC\\InstallDir"
+
+var recConsts = {
+  processName: "vlc"
+};
 
 var cursor_size = 12 //in pixels
 var cursor_name = "vlc_cursor"
@@ -73,13 +76,15 @@ var messages = {
 */
 
 function Start(VideoQuality) {
-  Indicator.Hide()
-  var isVLCExists = Sys.WaitProcess(proc_name).Exists
-  Indicator.Show()
+  var recExists;
+  
+  Indicator.Hide();
+  recExists = Sys.WaitProcess(recConsts.processName).Exists;
+  Indicator.Show();
 
-  if (isVLCExists) {
-    Log.Warning(logMessages.recStartFail.message, aqString.Format(logMessages.recStartFail.messageEx, proc_name))
-    return
+  if (recExists) {
+    Log.Warning(logMessages.recStartFail.message, aqString.Format(logMessages.recStartFail.messageEx, recConsts.processName));
+    return;
   }
 
   if (VideoQuality == undefined)
@@ -101,23 +106,15 @@ function Start(VideoQuality) {
   return video_file_path
 }
 
-function yy() {
-  // var p = "C:\\temp\\1.txt"
-  // Log.Message(aqFile.Exists(p))
-  Start()
-  Stop()
-}
-
-
 function Stop() {
   Indicator.Hide()
-  var isVLCExists = Sys.WaitProcess(proc_name, timeout_minimum).Exists
+  var isVLCExists = Sys.WaitProcess(recConsts.processName, timeout_minimum).Exists
   Indicator.Show()
 
   if (!isVLCExists)
     Log.Warning(logMessages.recStopFail.message, logMessages.recStopFail.messageEx)
   else if (!isStarted) {
-    Log.Warning(logMessages.recStopFailNotStarted.message, aqString.Format(logMessages.recStopFailNotStarted.messageEx, proc_name))
+    Log.Warning(logMessages.recStopFailNotStarted.message, aqString.Format(logMessages.recStopFailNotStarted.messageEx, recConsts.processName));
   }
   else {
     StopRecording()
@@ -130,7 +127,7 @@ function Stop() {
     if (aqFile.Exists(aqString.Unquote(video_file_path)))
       Log.Link(video_file_path, logMessages.recStopOk.message, aqString.Format(logMessages.recStopOk.messageEx, video_file_path))
     else
-      Log.Warning(logMessages.recUnexpectedError.message, aqString.Format(logMessages.recUnexpectedError.messageEx, proc_name, getVLCPath(), prepareStartParamsString()))
+      Log.Warning(logMessages.recUnexpectedError.message, aqString.Format(logMessages.recUnexpectedError.messageEx, recConsts.processName, getVLCPath(), prepareStartParamsString()))
   }
   return video_file_path
 }
@@ -208,7 +205,7 @@ function StopRecording() {
 
   // forcely close player after timeout of video encoding
   Log.Enabled = false
-  var proc = Sys.WaitProcess(proc_name)
+  var proc = Sys.WaitProcess(recConsts.processName)
   var time = 0; //timer for timeout
   while (proc.Exists) {
     Delay(timeout_minimum, ind_encoding)
@@ -292,7 +289,7 @@ function getVLCPath() {
   if (!isVLCInstalled())
     return ""
   var reg = GetRegistryValue(reg_install_dir)
-  return reg + "\\" + proc_name + ".exe"
+  return reg + "\\" + recConsts.processName + ".exe"
 }
 
 /*
