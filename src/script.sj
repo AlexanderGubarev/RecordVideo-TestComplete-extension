@@ -73,6 +73,43 @@ function RecorderInfo() {
   };
 }
 
+function Presets() {
+  var _normal = {
+    name: "Normal",
+    fps: 24,
+    quality: 1000
+  };
+  var _low = {
+    name: "Low",
+    fps: 20,
+    quality: 500
+  };
+  var _high = {
+    name: "High",
+    fps: 30,
+    quality: 1600
+  };
+  var _default = _normal;
+
+  this.getDefault = function () {
+    return _default;
+  };
+
+  this.get = function (name) {
+    var presets = [_normal, _low, _high];
+    var i, found = _default;
+
+    for (i = 0; i < presets.lenght; i++) {
+      if (presets[i].name.toLowerCase() === name.toLowerCase()) {
+        found = presets[i];
+        break;
+      }
+    }
+
+    return found;
+  };
+}
+
 //Video file information
 function VideoFile() {
   var _path = (function generateVideoFilePath() {
@@ -117,43 +154,6 @@ function CursorFile() {
 
   this.getPath = function () {
     return _path;
-  };
-}
-
-function Presets() {
-  var _normal = {
-    name: "Normal",
-    fps: 24,
-    quality: 1000
-  },
-    _low = {
-      name: "Low",
-      fps: 20,
-      quality: 500
-    },
-    _high = {
-      name: "High",
-      fps: 30,
-      quality: 1600
-    },
-    _default = _normal;
-
-  this.get = function (name) {
-    var presets = [_normal, _low, _high];
-    var i, found = _default;
-
-    for (i = 0; i < presets.lenght; i++) {
-      if (presets[i].name.toLowerCase() === name.toLowerCase()) {
-        found = presets[i];
-        break;
-      }
-    }
-
-    return found;
-  };
-
-  this.getDefault = function () {
-    return _default;
   };
 }
 
