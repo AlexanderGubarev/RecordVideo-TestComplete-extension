@@ -6,10 +6,10 @@
     <ScriptExtension Name = "VideoRecorder" Author = "SmartBear Software" Version = "1.3" HomePage = "smartbear.com">
       <Script Name = "script.sj" InitRoutine="Initialize" FinalRoutine="Finalize">
             <RuntimeObject Name = "VideoRecorder" Icon="VideoStart-16.png">
-				<Method Name="Start" Routine="Start">
+				<Method Name="Start" Routine="RuntimeObject_Start">
 				Start video recording. Choose quality of recording video: "Low", "Normal", "High". If no parameter - "Normal" quality will be chosen.
 				</Method>
-		        <Method Name="Stop" Routine="Stop">
+		        <Method Name="Stop" Routine="RuntimeObject_Stop">
 				Stop video recording.
 				</Method>
 			<Description>
@@ -27,21 +27,21 @@
 			<Column Name="Description" GetValue="StartRecording_GetDescription"/>
 			</Columns>
             <Events>
-            <Event Name="OnCreate" Routine="StartRecording_OnCreate" />
-			<Event Name="OnSetup" Routine="StartRecording_OnSetup" />
-            <Event Name="OnExecute" Routine="StartRecording_OnExecute" />
+            <Event Name="OnCreate" Routine="KDTStartOperation_OnCreate" />
+			<Event Name="OnSetup" Routine="KDTStartOperation_OnSetup" />
+            <Event Name="OnExecute" Routine="KDTStartOperation_OnExecute" />
             </Events>			
 			</KDTOperation>
 			
 			<KDTOperation Name="Stop Video Recording" Category="Logging" Icon="VideoStop-16.png">
 			<Columns>
 			<Column Name="Item" Value="Stop Video Recording" />
-			<Column Name="Description" GetValue="StopRecording_GetDescription"/>
+			<Column Name="Description" GetValue="KDTStopOperation_GetDescription"/>
 			</Columns>
             <Events>
-            <Event Name="OnCreate" Routine="StopRecording_OnCreate" />
-			<Event Name="OnSetup" Routine="StopRecording_OnSetup" />
-            <Event Name="OnExecute" Routine="StopRecording_OnExecute" />
+            <Event Name="OnCreate" Routine="KDTStopOperation_OnCreate" />
+			<Event Name="OnSetup" Routine="KDTStopOperation_OnSetup" />
+            <Event Name="OnExecute" Routine="KDTStopOperation_OnExecute" />
             </Events>			
 			</KDTOperation>
 			</Script>

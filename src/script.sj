@@ -305,41 +305,53 @@ function Finalize() {
 }
 
 //
-// KDT Start
+// Runtime object
 //
-function StartRecording_OnCreate(Data, Parameters) {
+
+function RuntimeObject_Start(VideoQuality) {
+  recorderEngine.start(VideoQuality);
+}
+
+function RuntimeObject_Stop() {
+  recorderEngine.stop();
+}
+
+//
+// KDT Start operation
+//
+function KDTStartOperation_OnCreate(Data, Parameters) {
   Parameters.VideoQuality = recordingEngine.getPresetName();
 }
 
-function StartRecording_GetDescription(Data) {
+function KDTStartOperation_GetDescription(Data) {
   return messages.startDescription;
 }
 
-function StartRecording_OnExecute(Data, VideoQuality) {
+function KDTStartOperation_OnExecute(Data, VideoQuality) {
   return recorderEngine.start(VideoQuality);
 }
 
-function StartRecording_OnSetup(Data, Parameters) {
+function KDTStartOperation_OnSetup(Data, Parameters) {
   return true;
 }
 
 //
-// KDT Stop
+// KDT Stop operation
 //
 
-function StopRecording_OnCreate(Data, Parameters) {
+function KDTStopOperation_OnCreate(Data, Parameters) {
   return true;
 }
 
-function StopRecording_GetDescription(Data) {
+function KDTStopOperation_GetDescription(Data) {
   return messages.stopDescription;
 }
 
-function StopRecording_OnExecute(Data, Parameters) {
+function KDTStopOperation_OnExecute(Data, Parameters) {
   return recorderEngine.stop();
 }
 
-function StopRecording_OnSetup(Data, Parameters) {
+function KDTStopOperation_OnSetup(Data, Parameters) {
   return true;
 }
 
