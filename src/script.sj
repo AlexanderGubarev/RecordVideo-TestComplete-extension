@@ -132,13 +132,12 @@ function VideoFile() {
 
 //Cursor file information
 function CursorFile() {
-  var _format = "png";
-  var _path = aqFileSystem.ExpandUNCFileName("%temp%\\vlc_cursor." + _format);
+  var _path = aqFileSystem.ExpandUNCFileName("%temp%\\vlc_cursor.png");
 
   if (!aqFile.Exists(_path)) {
     (function createCursorFile(size, color, format, path) {
       var picture = Sys.Desktop.Picture(0, 0, size, size);
-      var config = picture.CreatePictureConfiguration(format);
+      var config = picture.CreatePictureConfiguration("png");
       var i, j;
 
       config.CompressionLevel = 9;
@@ -149,7 +148,7 @@ function CursorFile() {
       }
 
       picture.SaveToFile(path, config);
-    })(12, 0x0000FF/*red*/, _format, _path);
+    })(12, 0x0000FF/*red*/, _path);
   }
 
   this.getPath = function () {
@@ -289,10 +288,7 @@ function RecorderEngine() {
     }
   };
 }
-
 var recorderEngine = new RecorderEngine();
-
-
 
 // Do on extension load
 function Initialize() {
