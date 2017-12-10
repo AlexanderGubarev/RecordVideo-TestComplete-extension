@@ -1,22 +1,4 @@
-﻿// Settings
-var presetNormal = {
-  name: "Normal",
-  fps: 24,
-  quality: 1000
-};
-var presetLow = {
-  name: "Low",
-  fps: 20,
-  quality: 500
-};
-var presetHigh = {
-  name: "High",
-  fps: 30,
-  quality: 1600
-};
-var presetDefault = presetNormal;
-
-// Log messages
+﻿// Log messages
 var logMessages = {
   noRecorder: {
     message: "Unable to record video. Please check that VLC video player is installed.",
@@ -82,7 +64,7 @@ function RecorderInfo() {
     return result;
   }
 
-  this.isIstalled = function () {
+  this.isInstalled = function () {
     return getRegistryValue("VideoLan\\", "novalue") !== "novalue";
   };
 
@@ -138,24 +120,62 @@ function CursorFile() {
   };
 }
 
+function Presets() {
+  var _normal = {
+    name: "Normal",
+    fps: 24,
+    quality: 1000
+  },
+    _low = {
+      name: "Low",
+      fps: 20,
+      quality: 500
+    },
+    _high = {
+      name: "High",
+      fps: 30,
+      quality: 1600
+    },
+    _default = _normal;
+
+  this.get = function (name) {
+    var presets = [_normal, _low, _high];
+    var i, found = _default;
+
+    for (i = 0; i < presets.lenght; i++) {
+      if (presets[i].name.toLowerCase() === name.toLowerCase()) {
+        found = presets[i];
+        break;
+      }
+    }
+
+    return found;
+  };
+
+  this.getDefault = function () {
+    return _default;
+  };
+}
+
 // Engine
 function RecorderEngine() {
   var _recorderInfo = new RecorderInfo();
+  var _presets = new Presets();
 
-  var _settings = presetDefault;
+  var _settings = _presets.getDefault();
   var _videoFile;
   var _cursorFile;
   var _isStarted = false;
 
   function runCommand(args) {
-    WshShell.Run(aqString.Format('"%s" %s', _runnerInfo.getPath(), args), 2, false);
+    WshShell.Run(aqString.Format('"%s" %s', _recorderInfo.getPath(), args), 2, false);
   }
 
   function getStartCommandArgs() {
     return "--one-instance screen:// -I dummy :screen-fps=" + _settings.fps +
       " :screen-follow-mouse :screen-mouse-image=" + "\"" + _cursorFile.getPath() + "\"" +
       " :no-sound :sout=#transcode{vcodec=h264,vb=" + _settings.quality + ",fps=" + _settings.fps + ",scale=1}" +
-      " :std{access=file,dst=\"" + file + "\"}";
+      " :std{access=file,dst=\"" + _videoFile.getPath() + "\"}";
   }
 
   function runStartCommand() {
@@ -180,7 +200,11 @@ function RecorderEngine() {
     }
   }
 
-  this.start = function (settings) {
+  this.getPresetName = function () {
+    return _settings.name;
+  };
+
+  this.start = function (presetName) {
     var recExists;
 
     Indicator.Hide();
@@ -200,7 +224,7 @@ function RecorderEngine() {
       return;
     }
 
-    _settings = settings;
+    _settings = _presets.get(presetName);
     _videoFile = new VideoFile();
     _cursorFile = new CursorFile();
     _isStarted = true;
@@ -284,7 +308,7 @@ function Finalize() {
 // KDT Start
 //
 function StartRecording_OnCreate(Data, Parameters) {
-  Parameters.VideoQuality = presetDefault.name;
+  Parameters.VideoQuality = recordingEngine.getPresetName();
 }
 
 function StartRecording_GetDescription(Data) {
@@ -292,16 +316,7 @@ function StartRecording_GetDescription(Data) {
 }
 
 function StartRecording_OnExecute(Data, VideoQuality) {
-  var presets = [presetNormal, presetLow, presetHigh];
-  var i, found = presetDefault;
-
-  for (i = 0; i < presets.lenght; i++) {
-    if (presets[i].name.toLowerCase() === VideoQuality.toLowerCase()) {
-      found = presets[i];
-      break;
-    }
-  }
-  return recorderEngine.start(found);
+  return recorderEngine.start(VideoQuality);
 }
 
 function StartRecording_OnSetup(Data, Parameters) {
@@ -327,3 +342,7 @@ function StopRecording_OnExecute(Data, Parameters) {
 function StopRecording_OnSetup(Data, Parameters) {
   return true;
 }
+
+//function Test() {
+//  StartRecording_OnExecute(null, "normal");
+//}
