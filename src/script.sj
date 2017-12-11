@@ -36,9 +36,7 @@ var logMessages = {
 
 //Other messages
 var messages = {
-  encodingInProgress: "Encoding the video file...",
-  startDescription: "Start video recording. You can find recorded video in Logs folder.",
-  stopDescription: "Stop video recording. You can find recorded video in Logs folder."
+  encodingInProgress: "Encoding the video file..."
 };
 
 //Recorder information
@@ -319,10 +317,6 @@ function KDTStartOperation_OnCreate(Data, Parameters) {
   Parameters.VideoQuality = recordingEngine.getPresetName();
 }
 
-function KDTStartOperation_GetDescription(Data) {
-  return messages.startDescription;
-}
-
 function KDTStartOperation_OnExecute(Data, VideoQuality) {
   return recorderEngine.start(VideoQuality);
 }
@@ -337,10 +331,6 @@ function KDTStartOperation_OnSetup(Data, Parameters) {
 
 function KDTStopOperation_OnCreate(Data, Parameters) {
   return true;
-}
-
-function KDTStopOperation_GetDescription(Data) {
-  return messages.stopDescription;
 }
 
 function KDTStopOperation_OnExecute(Data, Parameters) {

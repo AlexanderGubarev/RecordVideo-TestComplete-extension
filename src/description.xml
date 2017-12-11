@@ -23,7 +23,7 @@
 					<Columns>
 						<Column Name="Item" Value="Start Video Recording" />
 						<Column Name="Value" Editable="True" EditorType="Parameters" />
-						<Column Name="Description" GetValue="StartRecording_GetDescription" />
+						<Column Name="Description" Value="Start video recording. You can find recorded video in Logs folder. />
 					</Columns>
 					<Events>
 						<Event Name="OnCreate" Routine="KDTStartOperation_OnCreate" />
@@ -34,7 +34,7 @@
 				<KDTOperation Name="Stop Video Recording" Category="Logging" Icon="VideoStop-16.png">
 					<Columns>
 						<Column Name="Item" Value="Stop Video Recording" />
-						<Column Name="Description" GetValue="KDTStopOperation_GetDescription" />
+						<Column Name="Description" Value="Stop video recording. You can find recorded video in Logs folder." />
 					</Columns>
 					<Events>
 						<Event Name="OnCreate" Routine="KDTStopOperation_OnCreate" />
