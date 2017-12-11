@@ -1,34 +1,34 @@
 ﻿// Log messages
 var logMessages = {
-  noRecorder: {
+  recorderIsNotInstalled: {
     message: "Unable to record video. Please check that VLC video player is installed.",
     messageEx: "<p>You can download necessary VLC video player here:<br/><a href='%s' target='_blank'>%s</a></p>"
   },
-  recStartOk: {
+  startOk: {
     message: "The video recording is started. You can find recorded video in Logs folder.",
     messageEx: "The quality is: %s.\r\nYou can change the quality of videos by redefining VideoQuality parameter.\r\n\r\nThe video file will be created:\r\n%s"
   },
-  recStartFail: {
+  startFailAlreadyStarted: {
     message: "The video is already in recording state. Please see Additional information.",
     messageEx: "You need to stop previous video recording before starting the new one.\r\nIf you see " + "%s" + ".exe process, please close it manually."
   },
-  recStopOk: {
+  stopOk: {
     message: "The video recording is stopped.",
     messageEx: "The video file has been created:\r\n%s"
   },
-  recStopFail: {
+  stopFailNoRecorderProcess: {
     message: "The video recording was not even started!",
     messageEx: "Unable to detect working instance of VLC application. Please, check that you start recording in your test."
   },
-  recStopFailNotStarted: {
+  stopFailRecorderNotStarted: {
     message: "The video recording was not even started! Please see Additional information.",
     messageEx: "It seems the previos instance of VLC player was not closed.\r\nIf you see %s.exe process, please close it manually."
   },
-  recUnexpectedError: {
+  recorderUnexpectedError: {
     message: "Something was wrong during the recording process. Please see Additional Information.",
     messageEx: "Please try to launch the player manually with command line:\r\n\r\n\"%s\" %s"
   },
-  recWasTerminated: {
+  processWasTerminated: {
     message: "The player process was terminated forcely because of timeout for video encoding.",
     messageEx: "Please try to record smaller video."
   }
@@ -194,7 +194,7 @@ function RecorderEngine() {
       wastedTime += timeoutPortion;
       if (wastedTime >= timeout) {
         process.Terminate();
-        Log.Warning(logMessages.recWasTerminated.message, logMessages.recWasTerminated.messageEx);
+        Log.Warning(logMessages.processWasTerminated.message, logMessages.processWasTerminated.messageEx);
       }
     }
   }
@@ -211,7 +211,7 @@ function RecorderEngine() {
     Indicator.Show();
 
     if (recExists) {
-      Log.Warning(logMessages.recStartFail.message, aqString.Format(logMessages.recStartFail.messageEx, _recorderInfo.getProcessName()));
+      Log.Warning(logMessages.startFailAlreadyStarted.message, aqString.Format(logMessages.startFailAlreadyStarted.messageEx, _recorderInfo.getProcessName()));
       return;
     }
 
@@ -219,7 +219,7 @@ function RecorderEngine() {
       var pmHigher = 300;
       var attr = Log.CreateNewAttributes();
       attr.ExtendedMessageAsPlainText = false;
-      Log.Warning(logMessages.noRecorder.message, aqString.Format(logMessages.noRecorder.messageEx, _recorderInfo.homepage, _recorderInfo.homepage), pmHigher, attr);
+      Log.Warning(logMessages.recorderIsNotInstalled.message, aqString.Format(logMessages.recorderIsNotInstalled.messageEx, _recorderInfo.homepage, _recorderInfo.homepage), pmHigher, attr);
       return;
     }
 
@@ -229,7 +229,7 @@ function RecorderEngine() {
     _isStarted = true;
     runStartCommand();
 
-    Log.Message(logMessages.recStartOk.message, aqString.Format(logMessages.recStartOk.messageEx, _settings.name, _videoFile.getPath()));
+    Log.Message(logMessages.startOk.message, aqString.Format(logMessages.startOk.messageEx, _settings.name, _videoFile.getPath()));
     return _videoFile.getPath();
   };
 
@@ -241,12 +241,12 @@ function RecorderEngine() {
     Indicator.Show();
 
     if (!recExists) {
-      Log.Warning(logMessages.recStopFail.message, logMessages.recStopFail.messageEx);
+      Log.Warning(logMessages.stopFailNoRecorderProcess.message, logMessages.stopFailNoRecorderProcess.messageEx);
       return;
     }
 
     if (!_isStarted) {
-      Log.Warning(logMessages.recStopFailNotStarted.message, aqString.Format(logMessages.recStopFailNotStarted.messageEx, _recorderInfo.getProcessName()));
+      Log.Warning(logMessages.stopFailRecorderNotStarted.message, aqString.Format(logMessages.stopFailRecorderNotStarted.messageEx, _recorderInfo.getProcessName()));
       return;
     }
 
@@ -271,10 +271,10 @@ function RecorderEngine() {
     }
 
     if (aqFile.Exists(_videoFile.getPath())) {
-      Log.Link(_videoFilePath, logMessages.recStopOk.message, aqString.Format(logMessages.recStopOk.messageEx, _videoFile.getPath()));
+      Log.Link(_videoFilePath, logMessages.stopOk.message, aqString.Format(logMessages.stopOk.messageEx, _videoFile.getPath()));
     }
     else {
-      Log.Warning(logMessages.recUnexpectedError.message, aqString.Format(logMessages.recUnexpectedError.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
+      Log.Warning(logMessages.recorderUnexpectedError.message, aqString.Format(logMessages.recorderUnexpectedError.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
     }
     return _videoFile.getPath();
   };
