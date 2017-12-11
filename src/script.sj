@@ -340,7 +340,3 @@ function KDTStopOperation_OnExecute(Data, Parameters) {
 function KDTStopOperation_OnSetup(Data, Parameters) {
   return true;
 }
-
-//function Test() {
-//  StartRecording_OnExecute(null, "normal");
-//}
