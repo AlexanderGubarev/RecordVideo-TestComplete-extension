@@ -19,8 +19,8 @@ Sometimes it's realy difficult to understand what happens during the nightly tes
 
 1) Download the repository files.
 2) Run the build.bat file.
-3) Copy the file RecordVideo.tcx from Output folder to the x86 folder of TestComplete or TestExecute:
-.\Bin\Extensions\ScriptExtensions\
+3) Copy the file RecordVideo.tcx from `out` folder to the x86 folder of TestComplete or TestExecute:
+`.\Bin\Extensions\ScriptExtensions\`<br/>
 TestComplete example:<br/>
 `C:\Program Files (x86)\SmartBear\TestComplete 12\Bin\Extensions\ScriptExtensions`
 <br/>TestExecute example:<br/>
@@ -29,16 +29,16 @@ TestComplete example:<br/>
 5) Launch product and use the extension as you want.
 
 # How to use it
-You can use the extension in your KeywordTest or sript. In both ways there is only one parameter for video recording, <i>VideoQuality</i> - and it can be `Low`,`Normal`, `High`. If parameter is ommited video will be recorded with <i>Normal</i> quality. Notice that the result video file size depends not only on <i>VideoQuality</i> parameter but also on how long the video is and the screen resolution.
+You can use the extension in your KeywordTest or sript. In both ways there is only one parameter for video recording, <b>VideoQuality</b> - and it can be `Low`,`Normal`, `High`. If parameter is ommited video will be recorded with <i>Normal</i> quality. Notice that the result video file size depends not only on <b>VideoQuality</b> parameter but also on how long the video is and the screen resolution.
 
 ## Using in KeywordTest
-When extension will be installed, two new Keyword test operation are available. Both of them are in Logging group and manage the video recording process. To start record video use <i>Start Video Recording</i> operation (<img src="https://github.com/AlexanderGubarev/RecordVideo-TestComplete-extension/blob/master/src/img/VideoStart-16.png" height="16">). Please, put it in the place of your test where you want to srart record video. When you add this operation, you need to choose the <i>VideoQuality</i> parameter. If you want to record video with `Low` or `High` quality, just put one of this text constant as value of <i>VideoQuality</i> parameter of this operation. Use the <i>Stop</i> operation (<img src="https://github.com/AlexanderGubarev/RecordVideo-TestComplete-extension/blob/master/src/img//VideoStop-16.png" height="16">) in place of your test where you want to stop video recording.
+When extension will be installed, two new Keyword test operation are available. Both of them are in Logging group and manage the video recording process. To start record video use <b>Start Video Recording</b> operation (<img src="https://github.com/AlexanderGubarev/RecordVideo-TestComplete-extension/blob/master/src/img/VideoStart-16.png" height="16">). Please, put it in the place of your test where you want to srart record video. When you add this operation, you need to choose the <b>VideoQuality</b> parameter. If you want to record video with `Low` or `High` quality, just put one of this text constant as value of <b>VideoQuality</b> parameter of this operation. Use the <b>Stop Video Recording</b> operation (<img src="https://github.com/AlexanderGubarev/RecordVideo-TestComplete-extension/blob/master/src/img//VideoStop-16.png" height="16">) in place of your test where you want to stop video recording.
 Example of test:
 <br/>
 <img src="https://github.com/AlexanderGubarev/RecordVideo-TestComplete-extension/blob/master/img/KDT_RecordVideo.png" height="300">
 
 ## Using in scripts
-Use the <b>VideoRecorder</b> object if you prefer to write scripts. This object can be used in any supported script languages. You need to write <i>Start()</i> method to start recording. Please, put it in the place of your code where you want to srart record video. If you want to record video with `Low` or `High` quality, just put this text constant as parameter of this method. Use the <i>Stop()</i> method where you want to stop video recording.
+Use the <b>VideoRecorder</b> object if you prefer to write scripts. This object can be used in any supported script languages. You need to write <b>Start()</b> method to start recording. Please, put it in the place of your code where you want to srart record video. If you want to record video with `Low` or `High` quality, just put this text constant as parameter of this method. Use the <b>Stop()</b> method where you want to stop video recording.
 Example of script:
 ```JavaScript
 function NotepadTest()
@@ -83,4 +83,4 @@ but we quite sure that it can be used on other versions of these products as wel
 # Restrictions and known issues
 
 * It supports only recording of main screen now.
-* If test is interrupted, the Log will be locked, so, the information about recording with link to the video file cannot be posted. In this case the video will be generated just after the product closing and you can find the path to the video in the Additional Information of message about recording start.
+* If test is interrupted, the Log will be locked, so, the information about recording with link to the video file cannot be posted. In this case the video will be generated just after the product closing and you can find the path to the video in the <i>Additional Information</i> of message about recording start.
