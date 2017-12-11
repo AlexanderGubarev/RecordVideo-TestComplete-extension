@@ -172,7 +172,7 @@ function RecorderEngine() {
     return "--one-instance screen:// -I dummy :screen-fps=" + _settings.fps +
       " :screen-follow-mouse :screen-mouse-image=" + "\"" + _cursorFile.getPath() + "\"" +
       " :no-sound :sout=#transcode{vcodec=h264,vb=" + _settings.quality + ",fps=" + _settings.fps + ",scale=1}" +
-      " :std{access=file,dst=\"" + _videoFile.getPath() + "\"}";
+      ":std{access=file,dst=\"" + _videoFile.getPath() + "\"}";
   }
 
   function runStartCommand() {
@@ -269,7 +269,7 @@ function RecorderEngine() {
     }
 
     if (aqFile.Exists(_videoFile.getPath())) {
-      Log.Link(_videoFilePath, logMessages.stopOk.message, aqString.Format(logMessages.stopOk.messageEx, _videoFile.getPath()));
+      Log.Link(_videoFile.getPath(), logMessages.stopOk.message, aqString.Format(logMessages.stopOk.messageEx, _videoFile.getPath()));
     }
     else {
       Log.Warning(logMessages.recorderUnexpectedError.message, aqString.Format(logMessages.recorderUnexpectedError.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
