@@ -217,7 +217,7 @@ function RecorderEngine() {
       var pmHigher = 300;
       var attr = Log.CreateNewAttributes();
       attr.ExtendedMessageAsPlainText = false;
-      Log.Warning(logMessages.recorderIsNotInstalled.message, aqString.Format(logMessages.recorderIsNotInstalled.messageEx, _recorderInfo.homepage, _recorderInfo.homepage), pmHigher, attr);
+      Log.Warning(logMessages.recorderIsNotInstalled.message, aqString.Format(logMessages.recorderIsNotInstalled.messageEx, _recorderInfo.getHomepage(), _recorderInfo.getHomepage()), pmHigher, attr);
       return;
     }
 
