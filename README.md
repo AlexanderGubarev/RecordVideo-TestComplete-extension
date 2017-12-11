@@ -23,8 +23,7 @@ Sometimes it's realy difficult to understand what happens during the nightly tes
 .\Bin\Extensions\ScriptExtensions\
 TestComplete example:<br/>
 `C:\Program Files (x86)\SmartBear\TestComplete 12\Bin\Extensions\ScriptExtensions`
-<br/>
-TestExecute example:<br/>
+<br/>TestExecute example:<br/>
 `C:\Program Files (x86)\SmartBear\TestExecute 12\Bin\Extensions\ScriptExtensions`
 4) Install the <a href="https://www.videolan.org/vlc/index.html">VLC media player</a>
 5) Launch product and use the extension as you want.
