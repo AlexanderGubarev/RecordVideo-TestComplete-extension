@@ -237,7 +237,7 @@ function RecorderEngine() {
     var recExists, i;
 
     Indicator.Hide();
-    recExists = Sys.WaitProcess(_recorderInfo.getProcessName(), timeout_minimum).Exists;
+    recExists = Sys.WaitProcess(_recorderInfo.getProcessName(), 1000).Exists;
     Indicator.Show();
 
     if (!recExists) {
