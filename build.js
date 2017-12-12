@@ -12,7 +12,9 @@ var extFilePath = zipFileDir + "\\" + outFileName + ".tcx";
 
 // Delete existing output directory
 if (fso.FolderExists(zipFileDir)) {
+    WScript.Echo("Old files deleting, please wait...");
     fso.DeleteFolder(zipFileDir);
+    WScript.Sleep(2000);
 }
 
 // Create output directory
