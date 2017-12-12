@@ -314,7 +314,7 @@ function RuntimeObject_Stop() {
 // KDT Start operation
 //
 function KDTStartOperation_OnCreate(Data, Parameters) {
-  Parameters.VideoQuality = recordingEngine.getPresetName();
+  Parameters.VideoQuality = recorderEngine.getPresetName();
 }
 
 function KDTStartOperation_OnExecute(Data, VideoQuality) {
