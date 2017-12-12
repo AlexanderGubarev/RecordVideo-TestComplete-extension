@@ -34,12 +34,12 @@ var logMessages = {
   }
 };
 
-//Other messages
+// Other messages
 var messages = {
   encodingInProgress: "Encoding the video file..."
 };
 
-//Recorder information
+// Recorder information
 function RecorderInfo() {
   this.getHomepage = function () {
     return "https://www.videolan.org/";
@@ -108,7 +108,7 @@ function Presets() {
   };
 }
 
-//Video file information
+// Video file information
 function VideoFile() {
   var _path = (function generateVideoFilePath() {
     var now = aqDateTime.Now();
@@ -128,7 +128,7 @@ function VideoFile() {
   };
 }
 
-//Cursor file information
+// Cursor file information
 function CursorFile() {
   var _path = aqFileSystem.ExpandUNCFileName("%temp%\\vlc_cursor.png");
 
