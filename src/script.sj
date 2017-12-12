@@ -12,12 +12,16 @@ var logMessages = {
     message: "The video is already in recording state. Please see Additional information.",
     messageEx: "You need to stop previous video recording before starting the new one.\r\nIf you see " + "%s" + ".exe process, please close it manually."
   },
+  stopStartNoRecorderProcess: {
+    message: "The video recording cannot be started. Please see Additional information.",
+    messageEx: "Please try to launch the player manually with command line:\r\n\r\n\"%s\" %s"
+  },
   stopOk: {
     message: "The video recording is stopped.",
     messageEx: "The video file has been created:\r\n%s"
   },
   stopFailNoRecorderProcess: {
-    message: "The video recording was not even started!",
+    message: "The video recording was not even started! Please see Additional information.",
     messageEx: "Unable to detect working instance of VLC application. Please, check that you start recording in your test."
   },
   stopFailRecorderNotStarted: {
@@ -48,6 +52,15 @@ function RecorderInfo() {
   this.getProcessName = function () {
     return "vlc";
   };
+  
+  this.existsProcess = function (timeout) {
+	if (timeout==undefined)
+      timeout = 0;		
+    Indicator.Hide();
+    var recExists = Sys.WaitProcess(this.getProcessName(), timeout).Exists;
+    Indicator.Show();	
+  	return recExists
+  }
 
   function getRegistryValue(name, defaultValue) {
     var bitPrefix = Sys.OSInfo.Windows64bit ? "Wow6432Node\\" : "";
@@ -205,9 +218,7 @@ function RecorderEngine() {
   this.start = function (presetName) {
     var recExists;
 
-    Indicator.Hide();
-    recExists = Sys.WaitProcess(_recorderInfo.getProcessName()).Exists;
-    Indicator.Show();
+    recExists = _recorderInfo.existsProcess()
 
     if (recExists) {
       Log.Warning(logMessages.startFailAlreadyStarted.message, aqString.Format(logMessages.startFailAlreadyStarted.messageEx, _recorderInfo.getProcessName()));
@@ -225,19 +236,22 @@ function RecorderEngine() {
     _settings = _presets.get(presetName);
     _videoFile = new VideoFile();
     _cursorFile = new CursorFile();
-    _isStarted = true;
     runStartCommand();
-
-    Log.Message(logMessages.startOk.message, aqString.Format(logMessages.startOk.messageEx, _settings.name, _videoFile.getPath()));
-    return _videoFile.getPath();
+	if (!_recorderInfo.existsProcess(3000) /*wait 3 seconds for player launching*/) {
+	  Log.Warning(logMessages.stopStartNoRecorderProcess.message, aqString.Format(logMessages.stopStartNoRecorderProcess.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
+	  return
+	}
+	else {
+	  Log.Message(logMessages.startOk.message, aqString.Format(logMessages.startOk.messageEx, _settings.name, _videoFile.getPath()));
+	  _isStarted = true;
+	}
+  return _videoFile.getPath();
   };
 
   this.stop = function () {
     var recExists, i;
 
-    Indicator.Hide();
-    recExists = Sys.WaitProcess(_recorderInfo.getProcessName(), 1000).Exists;
-    Indicator.Show();
+    recExists = _recorderInfo.existsProcess(1000)
 
     if (!recExists) {
       Log.Warning(logMessages.stopFailNoRecorderProcess.message, logMessages.stopFailNoRecorderProcess.messageEx);
