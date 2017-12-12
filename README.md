@@ -1,4 +1,4 @@
-RecordVideo Extension for TestComplete
+VideoRecorder Extension for TestComplete
 =================
 
 # About
@@ -19,7 +19,7 @@ Sometimes it's realy difficult to understand what happens during the nightly tes
 
 1) Download the repository files.
 2) Run the build.bat file.
-3) Copy the file RecordVideo.tcx from `.\out\` folder to the x86 folder of TestComplete or TestExecute:
+3) Copy the file VideoRecorder.tcx from `.\out\` folder to the x86 folder of TestComplete or TestExecute:
 `.\Bin\Extensions\ScriptExtensions\`<br/>
 TestComplete example:<br/>
 `C:\Program Files (x86)\SmartBear\TestComplete 12\Bin\Extensions\ScriptExtensions`
