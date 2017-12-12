@@ -108,8 +108,11 @@ function Presets() {
 
   this.get = function (name) {
     var presets = [_normal, _low, _high];
-    var lowerNameToFind = (name + "").toLowerCase();
     var i, found = _default;
+	
+    if (typeof(name)!="string")
+      name = _default.name
+    var lowerNameToFind = (name + "").toLowerCase();
 
     for (i = 0; i < presets.length; i++) {
       if (presets[i].name.toLowerCase() === lowerNameToFind) {
