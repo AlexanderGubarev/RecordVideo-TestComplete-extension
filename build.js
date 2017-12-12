@@ -1,6 +1,6 @@
 var srcDir = "src";
 var outDir = "out";
-var outFileName = "RecordVideo";
+var outFileName = "VideoRecorder";
 
 // Evaluate paths
 var fso = new ActiveXObject("Scripting.FileSystemObject");
