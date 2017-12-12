@@ -301,6 +301,19 @@ function RecorderEngine() {
     }
   };
 }
+
+// Check if method called from CodeCompletion
+function isCodeCompletionCall() {
+  try {
+    Log; // call of this object is not available from CodeCompletion  
+    return false;    
+  }
+  catch (ignore) {
+    return true;
+  }
+}
+
+// Create a new recorder object
 var gRecorderEngine = new RecorderEngine();
 
 // Do on extension load
@@ -318,10 +331,14 @@ function Finalize() {
 //
 
 function RuntimeObject_Start(VideoQuality) {
+  if (isCodeCompletionCall()) // don't process the method if it's called from CodeCompletion
+	  return;  
   gRecorderEngine.start(VideoQuality);
 }
 
 function RuntimeObject_Stop() {
+  if (isCodeCompletionCall()) // don't process the method if it's called from CodeCompletion
+	  return;
   gRecorderEngine.stop();
 }
 
