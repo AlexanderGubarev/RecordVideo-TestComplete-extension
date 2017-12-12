@@ -1,4 +1,4 @@
-﻿// Log messages
+// Log messages
 var logMessages = {
   recorderIsNotInstalled: {
     message: "Unable to record video. Please check that VLC video player is installed.",
@@ -315,11 +315,11 @@ function RuntimeObject_Stop() {
 // KDT Start operation
 //
 function KDTStartOperation_OnCreate(Data, Parameters) {
-  Parameters.VideoQuality = recorderEngine.getPresetName();
+  return true;
 }
 
-function KDTStartOperation_OnExecute(Data, VideoQuality) {
-  return recorderEngine.start(VideoQuality);
+function KDTStartOperation_OnExecute(Data, Parameters) {
+  return recorderEngine.start();
 }
 
 function KDTStartOperation_OnSetup(Data, Parameters) {
