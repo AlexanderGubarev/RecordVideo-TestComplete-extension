@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ScriptExtensionGroup Name="VideoRecorder">
 	<Category Name="Log Actions">
-		<ScriptExtension Name="VideoRecorder" Author="SmartBear Software" Version="1.0" HomePage="https://github.com/AlexanderGubarev/RecordVideo-TestComplete-extension">
+		<ScriptExtension Name="VideoRecorder" Author="SmartBear Software" Version="1.0" HomePage="github.com/AlexanderGubarev/RecordVideo-TestComplete-extension">
 			<Script Name="script.sj" InitRoutine="Initialize" FinalRoutine="Finalize">
 				<RuntimeObject Name="VideoRecorder" Icon="VideoStart-16.png">
 					<Method Name="Start" Routine="RuntimeObject_Start">
