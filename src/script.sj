@@ -287,16 +287,16 @@ function RecorderEngine() {
     }
   };
 }
-var recorderEngine = new RecorderEngine();
+var gRecorderEngine = new RecorderEngine();
 
 // Do on extension load
 function Initialize() {
-  recorderEngine.onInitialize();
+  gRecorderEngine.onInitialize();
 }
 
 // Do on extension unload
 function Finalize() {
-  recorderEngine.onFinalize();
+  gRecorderEngine.onFinalize();
 }
 
 //
@@ -304,11 +304,11 @@ function Finalize() {
 //
 
 function RuntimeObject_Start(VideoQuality) {
-  recorderEngine.start(VideoQuality);
+  gRecorderEngine.start(VideoQuality);
 }
 
 function RuntimeObject_Stop() {
-  recorderEngine.stop();
+  gRecorderEngine.stop();
 }
 
 //
@@ -319,7 +319,7 @@ function KDTStartOperation_OnCreate(Data, Parameters) {
 }
 
 function KDTStartOperation_OnExecute(Data, Parameters) {
-  return recorderEngine.start();
+  return gRecorderEngine.start();
 }
 
 function KDTStartOperation_OnSetup(Data, Parameters) {
@@ -335,7 +335,7 @@ function KDTStopOperation_OnCreate(Data, Parameters) {
 }
 
 function KDTStopOperation_OnExecute(Data, Parameters) {
-  return recorderEngine.stop();
+  return gRecorderEngine.stop();
 }
 
 function KDTStopOperation_OnSetup(Data, Parameters) {
