@@ -15,7 +15,7 @@ if (fso.FolderExists(zipFileDir)) {
     fso.DeleteFolder(zipFileDir);
 }
 
-//Create output directory
+// Create output directory
 fso.CreateFolder(zipFileDir);
 
 // Create empty zip file
