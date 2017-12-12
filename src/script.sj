@@ -97,7 +97,7 @@ function Presets() {
     var presets = [_normal, _low, _high];
     var i, found = _default;
 
-    for (i = 0; i < presets.lenght; i++) {
+    for (i = 0; i < presets.length; i++) {
       if (presets[i].name.toLowerCase() === name.toLowerCase()) {
         found = presets[i];
         break;
