@@ -1,5 +1,5 @@
-var srcDir = "src\\";
-var outDir = "out\\";
+var srcDir = "src";
+var outDir = "out";
 var outFileName = "RecordVideo";
 
 // Evaluate paths
@@ -7,13 +7,16 @@ var fso = new ActiveXObject("Scripting.FileSystemObject");
 var currDir = fso.GetAbsolutePathName(".");
 var srcPath = currDir + "\\" + srcDir;
 var zipFileDir = currDir + "\\" + outDir;
-var zipFilePath = zipFileDir + outFileName + ".zip";
-var extFilePath = zipFileDir + outFileName + ".tcx";
+var zipFilePath = zipFileDir + "\\" + outFileName + ".zip";
+var extFilePath = zipFileDir + "\\" + outFileName + ".tcx";
 
-// Create output directory
-if (!fso.FolderExists(zipFileDir)) {
-    fso.CreateFolder(zipFileDir);
+// Delete existing output directory
+if (fso.FolderExists(zipFileDir)) {
+    fso.DeleteFolder(zipFileDir);
 }
+
+//Create output directory
+fso.CreateFolder(zipFileDir);
 
 // Create empty zip file
 var zipFile = fso.CreateTextFile(zipFilePath, true, false);
