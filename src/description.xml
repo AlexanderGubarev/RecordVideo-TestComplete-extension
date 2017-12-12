@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ScriptExtensionGroup Name="VideoRecorder">
 	<Category Name="Log Actions">
 		<ScriptExtension Name="VideoRecorder" Author="SmartBear Software" Version="1.0" HomePage="smartbear.com">
@@ -15,14 +15,8 @@
 					</Description>
 				</RuntimeObject>
 				<KDTOperation Name="Start Video Recording" Category="Logging" Icon="VideoStart-16.png">
-					<Parameters>
-						<Parameter Name="VideoQuality" DefaultValue="Normal">
-							The quality of recording video.
-						</Parameter>
-					</Parameters>
 					<Columns>
 						<Column Name="Item" Value="Start Video Recording" />
-						<Column Name="Value" Editable="True" EditorType="Parameters" />
 						<Column Name="Description" Value="Start video recording. You can find recorded video in Logs folder." />
 					</Columns>
 					<Events>
