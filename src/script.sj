@@ -6,11 +6,11 @@ var logMessages = {
   },
   startOk: {
     message: "The video recording is started. You can find recorded video in Logs folder.",
-    messageEx: "The quality is: %s.\r\nYou can change the quality of videos by redefining VideoQuality parameter.\r\n\r\nThe video file will be created:\r\n%s"
+    messageEx: "The video quality is: %s.\r\n\r\nThe video file will be created:\r\n%s"
   },
   startFailAlreadyStarted: {
-    message: "The video is already in recording state. Please see Additional information.",
-    messageEx: "You need to stop previous video recording before starting the new one.\r\nIf you see " + "%s" + ".exe process, please close it manually."
+    message: "The video player is already run. Please see Additional information.",
+    messageEx: "You need to stop previous video player instance before starting the new one.\r\nIf you see " + "%s" + ".exe process, please close it manually."
   },
   stopStartNoRecorderProcess: {
     message: "The video recording cannot be started. Please see Additional information.",
