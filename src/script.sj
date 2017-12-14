@@ -56,12 +56,8 @@ function RecorderInfo() {
   this.doesProcessExist = function (timeout) {
     var result;
 
-    if (!timeout) {
-      timeout = 0;
-    }
-
     Indicator.Hide();
-    result = Sys.WaitProcess(this.getProcessName(), timeout).Exists;
+    result = Sys.WaitProcess(this.getProcessName(), timeout ? timeout : 0).Exists;
     Indicator.Show();
 
     return result;
