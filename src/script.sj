@@ -229,7 +229,7 @@ function RecorderEngine() {
 
     if (recExists) {
       Log.Warning(logMessages.startFailAlreadyStarted.message, aqString.Format(logMessages.startFailAlreadyStarted.messageEx, _recorderInfo.getProcessName()));
-      return;
+      return "";
     }
 
     if (!_recorderInfo.isInstalled()) {
@@ -237,7 +237,7 @@ function RecorderEngine() {
       var attr = Log.CreateNewAttributes();
       attr.ExtendedMessageAsPlainText = false;
       Log.Warning(logMessages.recorderIsNotInstalled.message, aqString.Format(logMessages.recorderIsNotInstalled.messageEx, _recorderInfo.getHomepage(), _recorderInfo.getHomepage()), pmHigher, attr);
-      return;
+      return "";
     }
 
     _settings = _presets.get(presetName);
@@ -246,7 +246,7 @@ function RecorderEngine() {
     runStartCommand();
     if (!_recorderInfo.doesProcessExist(3000) /*wait 3 seconds for player launching*/) {
       Log.Warning(logMessages.stopStartNoRecorderProcess.message, aqString.Format(logMessages.stopStartNoRecorderProcess.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
-      return;
+      return "";
     }
 
     _isStarted = true;
@@ -260,12 +260,12 @@ function RecorderEngine() {
 
     if (!recExists) {
       Log.Warning(logMessages.stopFailNoRecorderProcess.message, logMessages.stopFailNoRecorderProcess.messageEx);
-      return;
+      return "";
     }
 
     if (!_isStarted) {
       Log.Warning(logMessages.stopFailRecorderNotStarted.message, aqString.Format(logMessages.stopFailRecorderNotStarted.messageEx, _recorderInfo.getProcessName()));
-      return;
+      return "";
     }
 
     Indicator.Hide();
@@ -307,17 +307,6 @@ function RecorderEngine() {
   };
 }
 
-// Check if method called from CodeCompletion
-function isCodeCompletionCall() {
-  try {
-    Log; // call of this object is not available from CodeCompletion  
-    return false;
-  }
-  catch (ignore) {
-    return true;
-  }
-}
-
 // Create a new recorder object
 var gRecorderEngine = new RecorderEngine();
 
@@ -336,17 +325,27 @@ function Finalize() {
 //
 
 function RuntimeObject_Start(VideoQuality) {
-  if (isCodeCompletionCall()) {// don't process the method if it's called from CodeCompletion
-    return;
+  var result = "";
+  
+  try {
+    result = gRecorderEngine.start(VideoQuality);
   }
-  gRecorderEngine.start(VideoQuality);
+  catch(ignore) {
+  }
+
+  return result;
 }
 
 function RuntimeObject_Stop() {
-  if (isCodeCompletionCall()) {// don't process the method if it's called from CodeCompletion
-    return;
+  var result = "";
+
+  try {
+    result = gRecorderEngine.stop();
   }
-  gRecorderEngine.stop();
+  catch(ignore) {
+  }
+
+  return result;
 }
 
 //
