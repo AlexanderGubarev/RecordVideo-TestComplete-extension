@@ -5,10 +5,10 @@
 			<Script Name="script.sj" InitRoutine="Initialize" FinalRoutine="Finalize">
 				<RuntimeObject Name="VideoRecorder" Icon="VideoStart-16.png">
 					<Method Name="Start" Routine="RuntimeObject_Start">
-						Start video recording. Choose quality of recording video: "Low", "Normal", "High". If no parameter - "Normal" quality will be chosen.
+						Start video recording and return the path to video file. Choose quality of recording video: "Low", "Normal", "High". If no parameter - "Normal" quality will be chosen.
 					</Method>
 					<Method Name="Stop" Routine="RuntimeObject_Stop">
-						Stop video recording.
+						Stop video recording and return the path to video file.
 					</Method>
 					<Description>
 						Record video of test playback via VLC video player.
@@ -17,7 +17,7 @@
 				<KDTOperation Name="Start Video Recording" Category="Logging" Icon="VideoStart-16.png">
 					<Columns>
 						<Column Name="Item" Value="Start Video Recording" />
-						<Column Name="Description" Value="Start video recording. You can find recorded video in Logs folder." />
+						<Column Name="Description" Value="Start video recording and return the path to video file. You can find recorded video in Logs folder." />
 					</Columns>
 					<Events>
 						<Event Name="OnCreate" Routine="KDTStartOperation_OnCreate" />
@@ -28,7 +28,7 @@
 				<KDTOperation Name="Stop Video Recording" Category="Logging" Icon="VideoStop-16.png">
 					<Columns>
 						<Column Name="Item" Value="Stop Video Recording" />
-						<Column Name="Description" Value="Stop video recording. You can find recorded video in Logs folder." />
+						<Column Name="Description" Value="Stop video recording and return the path to video file. You can find recorded video in Logs folder." />
 					</Columns>
 					<Events>
 						<Event Name="OnCreate" Routine="KDTStopOperation_OnCreate" />
