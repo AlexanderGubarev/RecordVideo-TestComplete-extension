@@ -12,9 +12,9 @@ var extFilePath = zipFileDir + "\\" + outFileName + ".tcx";
 
 // Delete existing output directory
 if (fso.FolderExists(zipFileDir)) {
-    WScript.Echo("Old files deleting, please wait...");
-    fso.DeleteFolder(zipFileDir);
-    WScript.Sleep(2000);
+  WScript.Echo("Old files deleting, please wait...");
+  fso.DeleteFolder(zipFileDir);
+  WScript.Sleep(2000);
 }
 
 // Create output directory
@@ -23,8 +23,8 @@ fso.CreateFolder(zipFileDir);
 // Create empty zip file
 var zipFile = fso.CreateTextFile(zipFilePath, true, false);
 var emptyZipContent = "PK" + String.fromCharCode(5, 6);
-for(var i = 0; i < 18; i++) {
-    emptyZipContent += String.fromCharCode(0);
+for (var i = 0; i < 18; i++) {
+  emptyZipContent += String.fromCharCode(0);
 }
 zipFile.Write(emptyZipContent);
 zipFile.Close();
