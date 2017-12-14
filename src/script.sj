@@ -321,23 +321,19 @@ function Finalize() {
 //
 
 function RuntimeObject_Start(VideoQuality) {
-  var result = "";
-  
-  if (typeof(Log) !== 'undefined') { // execute on run-time state only
-    result = gRecorderEngine.start(VideoQuality);
+  if (typeof Log === "undefined") { // execute on run-time state only
+    return "";
   }
 
-  return result;
+  return gRecorderEngine.start(VideoQuality);
 }
 
 function RuntimeObject_Stop() {
-  var result = "";
-  
-  if (typeof(Log) !== 'undefined') { // execute on run-time state only
-    result = gRecorderEngine.stop();
+  if (typeof Log === "undefined") { // execute on run-time state only
+    return "";
   }
 
-  return result;
+  return gRecorderEngine.stop();
 }
 
 //
