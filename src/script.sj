@@ -52,15 +52,20 @@ function RecorderInfo() {
   this.getProcessName = function () {
     return "vlc";
   };
-  
-  this.existsProcess = function (timeout) {
-	if (timeout==undefined)
-      timeout = 0;		
+
+  this.doesProcessExist = function (timeout) {
+    var result;
+
+    if (!timeout) {
+      timeout = 0;
+    }
+
     Indicator.Hide();
-    var recExists = Sys.WaitProcess(this.getProcessName(), timeout).Exists;
-    Indicator.Show();	
-  	return recExists
-  }
+    result = Sys.WaitProcess(this.getProcessName(), timeout).Exists;
+    Indicator.Show();
+
+    return result;
+  };
 
   function getRegistryValue(name, defaultValue) {
     var bitPrefix = Sys.OSInfo.Windows64bit ? "Wow6432Node\\" : "";
@@ -110,7 +115,7 @@ function Presets() {
     var presets = [_normal, _low, _high];
     var lowerNameToFind = _default.name.toLowerCase();
     var i, found = _default;
-	
+
     if (typeof name === "string") {
       lowerNameToFind = name.toLowerCase();
     }
@@ -220,9 +225,7 @@ function RecorderEngine() {
   };
 
   this.start = function (presetName) {
-    var recExists;
-
-    recExists = _recorderInfo.existsProcess()
+    var recExists = _recorderInfo.doesProcessExist();
 
     if (recExists) {
       Log.Warning(logMessages.startFailAlreadyStarted.message, aqString.Format(logMessages.startFailAlreadyStarted.messageEx, _recorderInfo.getProcessName()));
@@ -241,21 +244,19 @@ function RecorderEngine() {
     _videoFile = new VideoFile();
     _cursorFile = new CursorFile();
     runStartCommand();
-	if (!_recorderInfo.existsProcess(3000) /*wait 3 seconds for player launching*/) {
-	  Log.Warning(logMessages.stopStartNoRecorderProcess.message, aqString.Format(logMessages.stopStartNoRecorderProcess.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
-	  return
-	}
-	else {
-	  Log.Message(logMessages.startOk.message, aqString.Format(logMessages.startOk.messageEx, _settings.name, _videoFile.getPath()));
-	  _isStarted = true;
-	}
-  return _videoFile.getPath();
+    if (!_recorderInfo.doesProcessExist(3000) /*wait 3 seconds for player launching*/) {
+      Log.Warning(logMessages.stopStartNoRecorderProcess.message, aqString.Format(logMessages.stopStartNoRecorderProcess.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
+      return;
+    }
+
+    _isStarted = true;
+    Log.Message(logMessages.startOk.message, aqString.Format(logMessages.startOk.messageEx, _settings.name, _videoFile.getPath()));
+    return _videoFile.getPath();
   };
 
   this.stop = function () {
-    var recExists, i;
-
-    recExists = _recorderInfo.existsProcess(1000)
+    var recExists = _recorderInfo.doesProcessExist(1000);
+    var i;
 
     if (!recExists) {
       Log.Warning(logMessages.stopFailNoRecorderProcess.message, logMessages.stopFailNoRecorderProcess.messageEx);
@@ -310,7 +311,7 @@ function RecorderEngine() {
 function isCodeCompletionCall() {
   try {
     Log; // call of this object is not available from CodeCompletion  
-    return false;    
+    return false;
   }
   catch (ignore) {
     return true;
@@ -335,14 +336,16 @@ function Finalize() {
 //
 
 function RuntimeObject_Start(VideoQuality) {
-  if (isCodeCompletionCall()) // don't process the method if it's called from CodeCompletion
-	  return;  
+  if (isCodeCompletionCall()) {// don't process the method if it's called from CodeCompletion
+    return;
+  }
   gRecorderEngine.start(VideoQuality);
 }
 
 function RuntimeObject_Stop() {
-  if (isCodeCompletionCall()) // don't process the method if it's called from CodeCompletion
-	  return;
+  if (isCodeCompletionCall()) {// don't process the method if it's called from CodeCompletion
+    return;
+  }
   gRecorderEngine.stop();
 }
 
