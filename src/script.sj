@@ -1,4 +1,4 @@
-// Log messages
+﻿// Log messages
 var logMessages = {
   recorderIsNotInstalled: {
     message: "Unable to record video. Please check that VLC video player is installed.",
@@ -108,11 +108,12 @@ function Presets() {
 
   this.get = function (name) {
     var presets = [_normal, _low, _high];
+    var lowerNameToFind = _default.name.toLowerCase();
     var i, found = _default;
 	
-    if (typeof(name)!="string")
-      name = _default.name
-    var lowerNameToFind = (name + "").toLowerCase();
+    if (typeof name === "string") {
+      lowerNameToFind = name.toLowerCase();
+    }
 
     for (i = 0; i < presets.length; i++) {
       if (presets[i].name.toLowerCase() === lowerNameToFind) {
