@@ -331,27 +331,19 @@ function Finalize() {
     ==================== */
 
 function RuntimeObject_Start(VideoQuality) {
-  var result = "";
-  
-  try {
-    result = gRecorderEngine.start(VideoQuality);
-  }
-  catch(ignore) {
+  if (typeof Log === "undefined") { // execute on run-time state only
+    return "";
   }
 
-  return result;
+  return gRecorderEngine.start(VideoQuality);
 }
 
 function RuntimeObject_Stop() {
-  var result = "";
-
-  try {
-    result = gRecorderEngine.stop();
-  }
-  catch(ignore) {
+  if (typeof Log === "undefined") { // execute on run-time state only
+    return "";
   }
 
-  return result;
+  return gRecorderEngine.stop();
 }
 
 

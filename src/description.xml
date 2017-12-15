@@ -5,10 +5,10 @@
 			<Script Name="script.sj" InitRoutine="Initialize" FinalRoutine="Finalize">
 				<RuntimeObject Name="VideoRecorder" Icon="VideoStart-16.png">
 					<Method Name="Start" Routine="RuntimeObject_Start">
-						Starts a video recording session. VideoQuality = a string that specifies the video quality: "Low", "Normal" (default), or "High".
+						Starts a video recording session. Returns the video file name. VideoQuality = a string that specifies the video quality: "Low", "Normal" (default), or "High".
 					</Method>
 					<Method Name="Stop" Routine="RuntimeObject_Stop">
-						Stops the video recording session.
+						Stops the video recording session. Returns the video file name.
 					</Method>
 					<Description>
 						Records an .mp4 video of a test run. Uses the VLC video recorded.
@@ -17,7 +17,7 @@
 				<KDTOperation Name="Start Video Recording" Category="Logging" Icon="VideoStart-16.png">
 					<Columns>
 						<Column Name="Item" Value="Start Video Recording" />
-						<Column Name="Description" Value="Starts a video recording session. The recorded video will be saved to the &lt;your-project&gt;\Logs folder." />
+						<Column Name="Description" Value="Starts a video recording session. Returns the video file name. The recorded video will be saved to the &lt;your-project&gt;\Logs folder." />
 					</Columns>
 					<Events>
 						<Event Name="OnCreate" Routine="KDTStartOperation_OnCreate" />
@@ -28,7 +28,7 @@
 				<KDTOperation Name="Stop Video Recording" Category="Logging" Icon="VideoStop-16.png">
 					<Columns>
 						<Column Name="Item" Value="Stop Video Recording" />
-						<Column Name="Description" Value="Stops a video recording session. You can find the recorded video in the &lt;your-project&gt;\Logs folder." />
+						<Column Name="Description" Value="Stops a video recording session. Returns the video file name. You can find the recorded video in the &lt;your-project&gt;\Logs folder." />
 					</Columns>
 					<Events>
 						<Event Name="OnCreate" Routine="KDTStopOperation_OnCreate" />
