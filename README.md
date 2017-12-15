@@ -32,7 +32,8 @@ Download it from **[https://www.videolan.org/](https://www.videolan.org/)**.
 It will pack the extension sources to the _`VideoRecorder.tcx`_ achrive, and copy that archive to the _`out`_ subfolder of your repo.
 
 ### 3. Install the Extension
-Copy the file VideoRecorder.tcx from the _`out`_ subfolder to the _`Bin\Extensions\ScriptExtensions\`_ folder of your TestComplete or TestExecute installation, for example:
+1. Closse TestComplete )or TestExecute). 
+2. Copy the file VideoRecorder.tcx from the _`out`_ subfolder to the _`Bin\Extensions\ScriptExtensions\`_ folder of your TestComplete or TestExecute installation, for example:
   - TestComplete:
         `C:\Program Files (x86)\SmartBear\TestComplete 12\Bin\Extensions\ScriptExtensions`
   - TestExecute:
@@ -47,11 +48,11 @@ You can start and stop recording from your script or keyword tests.
 ### In Keyword Tests
 
 1. To start and stop recording, you use the **Start Video Recording** and **Stop Video Recording** operations that the VideoRecorder adds to TestComplete. You can find these operations in the Logging operation category. Simply drag these operations to your test:
-  ![]()
+  ![Using VideoRecorder in TestComplete keyword tests]()
 
 2. If needed, use the "Start" operation parameters to set the desired video quality: _Low_, _Normal_ or _High_. The default is _Normal_.
 
-  ![]()
+  ![Settings video quality in keyword tests]()
 
 That's all. Now you can run your test. 
 
@@ -59,7 +60,7 @@ That's all. Now you can run your test.
 ### In Scripts
 To work with the recorder from scripts, the extension adds the `VideoRecorder` object to TestComplete. The object is available in all the supported scripting languages. 
 
-Use `VideoRecorder.Start()` method to start recording, and `VideoRecorder.Stop()` to stop it. The `Start()` method has a _VideoQuality_ string parameter (`Start(VideoQuality)`) that specifies the quality of the recorded video. Possible values include "_Low_", "_Normal_" (default) and "_High_". 
+Use `VideoRecorder.Start()` method to start recording, and `VideoRecorder.Stop()` to stop it. The `Start()` method has a _VideoQuality_ string parameter (`Start(VideoQuality)`) that specifies the quality of the recorded video. Possible values include "_Low_", "_Normal_" (default) and "_High_". The parameter is case-insensitive.
 
 ```JavaScript
 // JavaScript Example
@@ -83,11 +84,15 @@ function foo() {
 }
 ```
 
+To determine if the recorder is working, use the `VideoRecorder().IsRecording()` method.
+
+
 # Results
 During its work, the recorder posts informative, warning and error messages to the test log.
+
 Information on the recorded file name is available in the test log in both the "start" and "stop" messages. You can find the file name in the Additional Info tab:
 
-![Additional Info tab]()
+![VideoRecorder messages in the test log]()
 
 The link to the recorded video is posted along with the "stop" message. The "start" message cannot do this, because the file does not exist at the moment of the start.
 
@@ -99,9 +104,9 @@ The recorder generates the video file when the recording stops, or when TestComp
 - The size of the resulting movie depends on how long the video was recorded, on its quality (low, normal, or high) and on your screen resolution.
 - The video file name includes the date and time of the video start, so you can record several videos during one test run.
 - If generation of the resulting video file takes longer than 10 minutes, the extension cancels this process, stops the recording engine and reports an error.
-- **IMPORTANT:** it is important to start and stop the recording from within your test. The extension cannot use the recorder instance started outside TestComplete (or outside TestExecute). 
+- The keyword-test operations and the `Start` and `Stop` scripting methods return the fully-qualified name of the recorded video file.
+- **IMPORTANT:** start and stop recording from within your test. The extension cannot use the recorder instance started outside TestComplete (or outside TestExecute). 
   Also, it is **_very important_** to stop the recorder when the testing is over. The extension cannot start recording, if you have a working recorder instance in the system. In this case, you have to close the recorder process (or processes) manually. 
-- Both keyword-test operations, and both the `Start` and `Stop` script methods returns the fully-qualified name of the recorded video file.
   
 <a name="if-stop-on-error"></a>
 # If Your Test Stops on Error
@@ -109,9 +114,19 @@ The recorder generates the video file when the recording stops, or when TestComp
 This can happen rather frequent. For example, if the _[Stop on Error](https://support.smartbear.com/testcomplete/docs/working-with/managing-projects/properties/playback.html)_ property of your project is enabled, the test engine stops the test run once an error is posted to the log. In this case, it is possible that the recorder is not stopped, simply because the test does not reach the "Stop" command.
 
 Possible workarounds:
-- Consider adding the _`/exit`_ argument to the TestComplete (or TestExecute) command line. In this case, when the test stops on an error, the test engine will close TestComplete (TestExecute). The extension will detect this and will generate the video file. To find the file name, check the Additional Info posted to the log along with the "start" log message.
+- Consider placing an additional "Stop Video Recording" command to the [`OnStopTest`](https://support.smartbear.com/testcomplete/docs/reference/events/onstoptest.html) event handler. That is, you will have two "Stop" commands: one in the place where you need to stop the recording, and another one in the OnStopTest event handler. This event is raised whenever the test execution stops, so placing the "Stop" command there can be a good idea. Note that it is important to check if the recorder is running before calling `Stop()`:
+  ```
+  // JavaScript example
+  function GeneralEvents_OnStopTest(Sender)
+  {
+    if (VideoRecorder.IsRecording()) // Check if the recorder is working
+      VideoRecorder.Stop();
+  }
+  ```
+
+- Consider adding the _`/exit`_  (or _`/e`_) argument to the TestComplete (or TestExecute) [command line](https://support.smartbear.com/testcomplete/docs/working-with/automating/command-line-and-exit-codes/command-line.html). In this case, when the test stops on an error, the test engine will close TestComplete (TestExecute). The extension will detect this and will generate the video file. To find the file name, check the Additional Info posted to the log along with the "start" log message.
+
 - Consider disabling the _Stop on Error_ project property. See [Project Properties - Playback Options](https://support.smartbear.com/testcomplete/docs/working-with/managing-projects/properties/playback.html) in TestComplete documentation. 
-- Consider calling the Start and Stop Video Recording commands from within the [OnStartTest](https://support.smartbear.com/testcomplete/docs/reference/events/onstarttest.html) and [OnStopTest](https://support.smartbear.com/testcomplete/docs/reference/events/onstoptest.html) event handlers. The `OnStopTest` event is raised whenever the test execution stops, so placing the "Stop" command there can be a good idea.
 
 
 # Supported Versions
@@ -122,7 +137,9 @@ We tested the extension on --
 Most likely, the extension will work with other TestComplete and VLC versions.
 
 # Contacts and Feedback
-The SmartBear Community has ... 
-Send your questions, comments and suggestions to ..... We would appreciate your bug reports, ideas and any other feedback.
-Also, if you want to improve or change some code, feel free to send your contribution requests to .... 
+To learn more about the extension, please visit the **[TestComplete Community](https://community.smartbear.com/t5/TestComplete/ct-p/TestComplete_forum)** forum.
+
+Do not hesitate to send your questions, comments, bug reports and suggestions to the forum. We would appreciate any feedback. 
+
+If you want to improve or fix code, feel free to send pull requests to this repo.
 

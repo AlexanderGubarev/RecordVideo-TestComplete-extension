@@ -53,7 +53,7 @@ var messages = {
   encodingInProgress: "Encoding the video file..."
 };
 
-// Creates the RecorderInfo object
+// Creates an object that provides info on the recording engine
 function RecorderInfo() {
   this.getHomepage = function () {
     return "https://www.videolan.org/";
@@ -137,7 +137,7 @@ function Presets() {
   };
 }
 
-// Creates a VideoFile object
+// Creates an object that provides info on the recorded video file
 function VideoFile() {
   var _path = (function generateVideoFilePath() {
     var now = aqDateTime.Now();
@@ -157,7 +157,7 @@ function VideoFile() {
   };
 }
 
-// Creates the cursor file
+// Creates an object that provides information on the mouse pointer
 function CursorFile() {
   var _path = aqFileSystem.ExpandUNCFileName("%temp%\\vlc_cursor.png");
 
@@ -183,7 +183,7 @@ function CursorFile() {
   };
 }
 
-// Creates the RecorderEngine object
+// Creates a wrapper object for the VLC recorder
 function RecorderEngine() {
   var _recorderInfo = new RecorderInfo();
   var _presets = new Presets();
@@ -317,7 +317,7 @@ function RecorderEngine() {
   };
 }
 
-// Create a RecorderEngine object
+// Creates the recorder engine
 var gRecorderEngine = new RecorderEngine();
 
 // This method is called on loading the extension
@@ -335,7 +335,7 @@ function Finalize() {
     ==================== */
 
 function RuntimeObject_Start(VideoQuality) {
-  if (typeof Log === "undefined") { // execute on run-time state only
+  if (typeof Log === "undefined") { // Check if a test is running or not (to avoid issues with Code Completion)
     return "";
   }
 
@@ -343,7 +343,7 @@ function RuntimeObject_Start(VideoQuality) {
 }
 
 function RuntimeObject_Stop() {
-  if (typeof Log === "undefined") { // execute on run-time state only
+  if (typeof Log === "undefined") { // Check if a test is running or not (to avoid issues with Code Completion)
     return "";
   }
 
@@ -351,7 +351,7 @@ function RuntimeObject_Stop() {
 }
 
 function RuntimeObject_IsRecording() {
-  if (typeof Log === "undefined") { // execute on run-time state only
+  if (typeof Log === "undefined") { // Check if a test is running or not (to avoid issues with Code Completion)
     return "";
   }
 
