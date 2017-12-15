@@ -101,6 +101,7 @@ The recorder generates the video file when the recording stops, or when TestComp
 # Notes
 - The recorder always captures the entire screen.
 - On systems with multiple display devices, it records the main display only.
+- The video format is `.mp4`.
 - The size of the resulting movie depends on how long the video was recorded, on its quality (low, normal, or high) and on your screen resolution.
 - The video file name includes the date and time of the video start, so you can record several videos during one test run.
 - If generation of the resulting video file takes longer than 10 minutes, the extension cancels this process, stops the recording engine and reports an error.
