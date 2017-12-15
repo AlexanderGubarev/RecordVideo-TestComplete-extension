@@ -10,6 +10,9 @@
 					<Method Name="Stop" Routine="RuntimeObject_Stop">
 						Stops the video recording session. Returns the video file name.
 					</Method>
+					<Method Name="IsRecording" Routine="RuntimeObject_IsRecording">
+						Returns true if the recorder is working, false otherwise.
+					</Method>
 					<Description>
 						Records an .mp4 video of a test run. Uses the VLC video recorded.
 					</Description>

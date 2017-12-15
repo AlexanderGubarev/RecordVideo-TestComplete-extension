@@ -14,12 +14,12 @@ var logMessages = {
   },
   startStartNoRecorderProcess: {
     message: "Unable to start the video recorder. See Additional Info for details.",
-    messageEx: "<p>Your test failed to start the video recorder. Something is wrong in the system.<p>"+
-	"<p>To get more information:</p>"+
-	"<ul>" +
-	"<li>Run the VLC recorder in the system. Use the following command line for this:<br/>%s</li>" +
-	"<li>Explore messages in the command-line window.</li>" +
-	"</ul>"
+    messageEx: "<p>Your test failed to start the video recorder. Something is wrong in the system.<p>" +
+      "<p>To get more information:</p>" +
+      "<ul>" +
+      "<li>Run the VLC recorder in the system. Use the following command line for this:<br/>%s</li>" +
+      "<li>Explore messages in the command-line window.</li>" +
+      "</ul>"
   },
   stopOk: {
     message: "The video recording is over. Find the video file name in the Additional Info tab.",
@@ -35,12 +35,12 @@ var logMessages = {
   },
   recorderUnexpectedError: {
     message: "The video file has not been created. See Additional Info for details.",
-    messageEx: "<p>Your test failed to start the video recorder. Something is wrong in the system.<p>"+
-	"<p>To get more information:</p>"+
-	"<ul>" +
-	"<li>Run the VLC recorder in the system. Use the following command line for this:<br/>%s</li>" +
-	"<li>Explore messages in the command-line window.</li>" +
-	"</ul>"
+    messageEx: "<p>Your test failed to start the video recorder. Something is wrong in the system.<p>" +
+      "<p>To get more information:</p>" +
+      "<ul>" +
+      "<li>Run the VLC recorder in the system. Use the following command line for this:<br/>%s</li>" +
+      "<li>Explore messages in the command-line window.</li>" +
+      "</ul>"
   },
   processWasTerminated: {
     message: "The VLC recorder process has been terminated on timeout. See Additional Info for details.",
@@ -303,6 +303,10 @@ function RecorderEngine() {
     return _videoFile.getPath();
   };
 
+  this.isRecording = function () {
+    return _isStarted;
+  };
+
   this.onInitialize = function () {
   };
 
@@ -346,6 +350,13 @@ function RuntimeObject_Stop() {
   return gRecorderEngine.stop();
 }
 
+function RuntimeObject_IsRecording() {
+  if (typeof Log === "undefined") { // execute on run-time state only
+    return "";
+  }
+
+  return gRecorderEngine.isRecording();
+}
 
 /* ==================================
       "Start video recording" keyword-test operation
