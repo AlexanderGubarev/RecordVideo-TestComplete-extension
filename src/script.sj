@@ -1,40 +1,50 @@
 ﻿// Log messages
 var logMessages = {
   recorderIsNotInstalled: {
-    message: "Unable to record video. Please check that VLC video player is installed.",
-    messageEx: "<p>You can download necessary VLC video player here:<br/><a href='%s' target='_blank'>%s</a></p>"
+    message: "Unable to start video recording. The VLC recorder is not installed. See Additional Info for details.",
+    messageEx: "<p>The video recorder uses the recording functionality of the VLC framework.<br/>Download and install it from this website:<br/><a href='%s' target='_blank'>%s</a></p>"
   },
   startOk: {
-    message: "The video recording is started. You can find recorded video in Logs folder.",
-    messageEx: "The video quality is: %s.\r\n\r\nThe video file will be created:\r\n%s"
+    message: "The video recording started. The recorded video will be in the <your-project>\Logs folder. See the file name in the Additional Info tab.",
+    messageEx: "Video quality: %s\r\n\r\nName of the video file to be created:\r\n%s"
   },
   startFailAlreadyStarted: {
-    message: "The video player is already run. Please see Additional information.",
-    messageEx: "You need to stop previous video player instance before starting the new one.\r\nIf you see " + "%s" + ".exe process, please close it manually."
+    message: "Unable to start video recording. The VLC recorder is already running. See Additional Info for details.",
+    messageEx: "You need to stop the current VLC recorder before starting a new video recording session.\r\nIf you see the " + "%s" + ".exe process in the system, terminate it."
   },
-  stopStartNoRecorderProcess: {
-    message: "The video recording cannot be started. Please see Additional information.",
-    messageEx: "Please try to launch the player manually with command line:\r\n\r\n\"%s\" %s"
+  startStartNoRecorderProcess: {
+    message: "Unable to start the video recorder. See Additional Info for details.",
+    messageEx: "<p>Your test failed to start the video recorder. Something is wrong in the system.<p>"+
+	"<p>To get more information:</p>"+
+	"<ul>" +
+	"<li>Run the VLC recorder in the system. Use the following command line for this:<br/>%s</li>" +
+	"<li>Explore messages in the command-line window.</li>" +
+	"</ul>"
   },
   stopOk: {
-    message: "The video recording is stopped.",
-    messageEx: "The video file has been created:\r\n%s"
+    message: "The video recording is over. Find the video file name in the Additional Info tab.",
+    messageEx: "Video file name:\r\n%s"
   },
   stopFailNoRecorderProcess: {
-    message: "The video recording was not even started! Please see Additional information.",
-    messageEx: "Unable to detect working instance of VLC application. Please, check that you start recording in your test."
+    message: "Unable to find the video recorder. See Additional Info for details.",
+    messageEx: "Unable to find a running instance of the VLC recorder. Please check that you have started recording in your test."
   },
   stopFailRecorderNotStarted: {
-    message: "The video recording was not even started! Please see Additional information.",
-    messageEx: "It seems the previos instance of VLC player was not closed.\r\nIf you see %s.exe process, please close it manually."
+    message: "The video recording has not been started in your test. See Additional Info for details.",
+    messageEx: "Most likely, the running VLC recorder has not been started in your test.\r\nIf you see the %s.exe process running in the system, terminate it."
   },
   recorderUnexpectedError: {
-    message: "Something was wrong during the recording process. Please see Additional Information.",
-    messageEx: "Please try to launch the player manually with command line:\r\n\r\n\"%s\" %s"
+    message: "The video file has not been created. See Additional Info for details.",
+    messageEx: "<p>Your test failed to start the video recorder. Something is wrong in the system.<p>"+
+	"<p>To get more information:</p>"+
+	"<ul>" +
+	"<li>Run the VLC recorder in the system. Use the following command line for this:<br/>%s</li>" +
+	"<li>Explore messages in the command-line window.</li>" +
+	"</ul>"
   },
   processWasTerminated: {
-    message: "The player process was terminated forcely because of timeout for video encoding.",
-    messageEx: "Please try to record smaller video."
+    message: "The VLC recorder process has been terminated on timeout. See Additional Info for details.",
+    messageEx: "The VLC recorder was terminated on timeout. Most likely, it was saving the video for a long time. Please try recording a smaller video."
   }
 };
 
@@ -43,7 +53,7 @@ var messages = {
   encodingInProgress: "Encoding the video file..."
 };
 
-// Recorder information
+// Creates the RecorderInfo object
 function RecorderInfo() {
   this.getHomepage = function () {
     return "https://www.videolan.org/";
@@ -127,7 +137,7 @@ function Presets() {
   };
 }
 
-// Video file information
+// Creates a VideoFile object
 function VideoFile() {
   var _path = (function generateVideoFilePath() {
     var now = aqDateTime.Now();
@@ -147,7 +157,7 @@ function VideoFile() {
   };
 }
 
-// Cursor file information
+// Creates the cursor file
 function CursorFile() {
   var _path = aqFileSystem.ExpandUNCFileName("%temp%\\vlc_cursor.png");
 
@@ -165,7 +175,7 @@ function CursorFile() {
       }
 
       picture.SaveToFile(path, config);
-    })(12, 0x0000FF/*red*/, _path);
+    })(12, 0x0000FF /* Red color */, _path);
   }
 
   this.getPath = function () {
@@ -173,7 +183,7 @@ function CursorFile() {
   };
 }
 
-// Engine
+// Creates the RecorderEngine object
 function RecorderEngine() {
   var _recorderInfo = new RecorderInfo();
   var _presets = new Presets();
@@ -240,8 +250,8 @@ function RecorderEngine() {
     _videoFile = new VideoFile();
     _cursorFile = new CursorFile();
     runStartCommand();
-    if (!_recorderInfo.doesProcessExist(3000) /*wait 3 seconds for player launching*/) {
-      Log.Warning(logMessages.stopStartNoRecorderProcess.message, aqString.Format(logMessages.stopStartNoRecorderProcess.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
+    if (!_recorderInfo.doesProcessExist(3000) /* Wait for 3 seconds for the recorder to start */) {
+      Log.Warning(logMessages.startStartNoRecorderProcess.message, aqString.Format(logMessages.startStartNoRecorderProcess.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
       return "";
     }
 
@@ -265,15 +275,15 @@ function RecorderEngine() {
     }
 
     Indicator.Hide();
-    Delay(2000); // 2 sec. delay to catch the last moments
+    Delay(2000); // 2 s delay for last frames
     runStopCommand();
-    Delay(1000); // 1 sec. delay to avoid encoding status in video
+    Delay(1000); // 1 s delay to exclude the encoding message from the video
     Indicator.Show();
     Indicator.PushText(messages.encodingInProgress);
 
-    // forcely close player after timeout of video encoding
+    // Terminate the recorder on timeout (if encoding takes too much time)
     Log.Enabled = false;
-    ensureRecorderProcessIsClosed(10 * 60 * 1000 /*wait 10 minutes for player encode the video file*/);
+    ensureRecorderProcessIsClosed(10 * 60 * 1000 /* Wait for 10 minutes for the recorder to encode the video file */);
     Log.Enabled = true;
 
     _isStarted = false;
@@ -303,22 +313,22 @@ function RecorderEngine() {
   };
 }
 
-// Create a new recorder object
+// Create a RecorderEngine object
 var gRecorderEngine = new RecorderEngine();
 
-// Do on extension load
+// This method is called on loading the extension
 function Initialize() {
   gRecorderEngine.onInitialize();
 }
 
-// Do on extension unload
+// This method is called on unloading the extension
 function Finalize() {
   gRecorderEngine.onFinalize();
 }
 
-//
-// Runtime object
-//
+/* ====================
+      Runtime scripting object
+    ==================== */
 
 function RuntimeObject_Start(VideoQuality) {
   var result = "";
@@ -344,9 +354,11 @@ function RuntimeObject_Stop() {
   return result;
 }
 
-//
-// KDT Start operation
-//
+
+/* ==================================
+      "Start video recording" keyword-test operation
+    ================================== */
+
 function KDTStartOperation_OnCreate(Data, Parameters) {
   return true;
 }
@@ -359,9 +371,9 @@ function KDTStartOperation_OnSetup(Data, Parameters) {
   return true;
 }
 
-//
-// KDT Stop operation
-//
+/* ==================================
+      "Stop video recording" keyword-test operation
+    ================================== */
 
 function KDTStopOperation_OnCreate(Data, Parameters) {
   return true;

@@ -5,19 +5,19 @@
 			<Script Name="script.sj" InitRoutine="Initialize" FinalRoutine="Finalize">
 				<RuntimeObject Name="VideoRecorder" Icon="VideoStart-16.png">
 					<Method Name="Start" Routine="RuntimeObject_Start">
-						Start video recording. Choose quality of recording video: "Low", "Normal", "High". If no parameter - "Normal" quality will be chosen.
+						Starts a video recording session. VideoQuality = a string that specifies the video quality: "Low", "Normal" (default), or "High".
 					</Method>
 					<Method Name="Stop" Routine="RuntimeObject_Stop">
-						Stop video recording.
+						Stops the video recording session.
 					</Method>
 					<Description>
-						Record video of test playback via VLC video player.
+						Records an .mp4 video of a test run. Uses the VLC video recorded.
 					</Description>
 				</RuntimeObject>
 				<KDTOperation Name="Start Video Recording" Category="Logging" Icon="VideoStart-16.png">
 					<Columns>
 						<Column Name="Item" Value="Start Video Recording" />
-						<Column Name="Description" Value="Start video recording. You can find recorded video in Logs folder." />
+						<Column Name="Description" Value="Starts a video recording session. The recorded video will be saved to the &lt;your-project&gt;\Logs folder." />
 					</Columns>
 					<Events>
 						<Event Name="OnCreate" Routine="KDTStartOperation_OnCreate" />
@@ -28,7 +28,7 @@
 				<KDTOperation Name="Stop Video Recording" Category="Logging" Icon="VideoStop-16.png">
 					<Columns>
 						<Column Name="Item" Value="Stop Video Recording" />
-						<Column Name="Description" Value="Stop video recording. You can find recorded video in Logs folder." />
+						<Column Name="Description" Value="Stops a video recording session. You can find the recorded video in the &lt;your-project&gt;\Logs folder." />
 					</Columns>
 					<Events>
 						<Event Name="OnCreate" Routine="KDTStopOperation_OnCreate" />
@@ -38,7 +38,7 @@
 				</KDTOperation>
 			</Script>
 			<Description>
-				Provides KDT operation and scripting object for recording video of test run via VLC video player.
+				Provides keyword-test operations and a script object for video recording of test runs.
 			</Description>
 		</ScriptExtension>
 	</Category>
