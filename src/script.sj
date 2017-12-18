@@ -2,15 +2,15 @@
 var logMessages = {
   recorderIsNotInstalled: {
     message: "Unable to start video recording. The VLC recorder is not installed. See Additional Info for details.",
-    messageEx: "<p>The video recorder uses the recording functionality of the VLC framework.<br/>Download and install it from this website:<br/><a href='%s' target='_blank'>%s</a></p>"
+    messageEx: "<p>The video recorder uses the recording functionality of the VLC framework.<br/>Download the recorder from the following website and install it:<br/><a href='%s' target='_blank'>%s</a></p>"
   },
   startOk: {
-    message: "The video recording started. The recorded video will be in the <your-project>\Logs folder. See the file name in the Additional Info tab.",
-    messageEx: "Video quality: %s\r\n\r\nName of the video file to be created:\r\n%s"
+    message: "Video recording has started. The recorded video will be saved to the <your-project>\Logs folder. You will find the file name on the Additional Info tab.",
+    messageEx: "Video quality: %s\r\n\r\nThe name of the video file to be created:\r\n%s"
   },
   startFailAlreadyStarted: {
     message: "Unable to start video recording. The VLC recorder is already running. See Additional Info for details.",
-    messageEx: "You need to stop the current VLC recorder before starting a new video recording session.\r\nIf you see the " + "%s" + ".exe process in the system, terminate it."
+    messageEx: "You need to stop the running instance of the VLC recorder before starting a new video recording session.\r\nIf you see the " + "%s" + ".exe process in the system, terminate it."
   },
   startStartNoRecorderProcess: {
     message: "Unable to start the video recorder. See Additional Info for details.",
@@ -18,20 +18,20 @@ var logMessages = {
       "<p>To get more information:</p>" +
       "<ul>" +
       "<li>Run the VLC recorder in the system. Use the following command line for this:<br/>%s</li>" +
-      "<li>Explore messages in the command-line window.</li>" +
+      "<li>Explore the messages in the command-line window.</li>" +
       "</ul>"
   },
   stopOk: {
-    message: "The video recording is over. Find the video file name in the Additional Info tab.",
+    message: "Video recording is over. You can find the video file name on the Additional Info tab.",
     messageEx: "Video file name:\r\n%s"
   },
   stopFailNoRecorderProcess: {
     message: "Unable to find the video recorder. See Additional Info for details.",
-    messageEx: "Unable to find a running instance of the VLC recorder. Please check that you have started recording in your test."
+    messageEx: "Unable to find a running instance of the VLC recorder. Please make sure you have started recording in your test."
   },
   stopFailRecorderNotStarted: {
-    message: "The video recording has not been started in your test. See Additional Info for details.",
-    messageEx: "Most likely, the running VLC recorder has not been started in your test.\r\nIf you see the %s.exe process running in the system, terminate it."
+    message: "Video recording has not been started in your test. See Additional Info for details.",
+    messageEx: "Most likely, the running instance of the VLC recorder was not started from your test.\r\nIf you see the %s.exe process running in the system, terminate it."
   },
   recorderUnexpectedError: {
     message: "The video file has not been created. See Additional Info for details.",
@@ -39,12 +39,12 @@ var logMessages = {
       "<p>To get more information:</p>" +
       "<ul>" +
       "<li>Run the VLC recorder in the system. Use the following command line for this:<br/>%s</li>" +
-      "<li>Explore messages in the command-line window.</li>" +
+      "<li>Explore the messages in the command-line window.</li>" +
       "</ul>"
   },
   processWasTerminated: {
     message: "The VLC recorder process has been terminated on timeout. See Additional Info for details.",
-    messageEx: "The VLC recorder was terminated on timeout. Most likely, it was saving the video for a long time. Please try recording a smaller video."
+    messageEx: "The VLC recorder was terminated on timeout. Most likely, it had been saving the video for a long time. Please try to record a shorter video."
   }
 };
 
