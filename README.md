@@ -9,7 +9,7 @@ The extension uses JScript sources, but is suitable for any supported scripting 
 
 It records a video for your test runs, helping you to check the test execution and to understand what happened in your system and tested application during the test run.
 
-VideoRecorder is similar to the Test Visualizer of TestComplete, but it provides more convenient results. While Test Visualizer captures images for test commands that simulate user actions, the VideoRecorder creates a movie reflecting all the events, including those that occur between two commands. Also, it is easier to analyze a seamless video clip than a series of screenshots.
+VideoRecorder is similar to the [Test Visualizer](https://support.smartbear.com/testcomplete/docs/testing-with/visualizer/about.html) of TestComplete, but it provides more convenient results. While Test Visualizer captures images for test commands that simulate user actions, the VideoRecorder creates a movie reflecting all the events, including those that occur between two commands. Also, it is easier to analyze a seamless video clip than a series of screenshots.
 
 # When to Use
 Use VideoRecorder when it is difficult to understand the cause of the issue during automated test runs. For example, in some cases it is really difficult to find the cause of issues that occur during nightly test runs. Videos can help you with this.
