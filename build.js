@@ -12,7 +12,7 @@ var extFilePath = zipFileDir + "\\" + outFileName + ".tcx";
 
 // Delete the output folder, if it exists
 if (fso.FolderExists(zipFileDir)) {
-  WScript.Echo("Deleting old files, please wait...");
+  WScript.Echo("Deleting old files...");
   fso.DeleteFolder(zipFileDir);
   WScript.Sleep(2000);
 }
@@ -34,7 +34,7 @@ var shapp = new ActiveXObject("Shell.Application");
 var sources = shapp.NameSpace(srcPath).Items();
 shapp.NameSpace(zipFilePath).CopyHere(sources);
 
-WScript.Echo("Packing files, please wait...");
+WScript.Echo("Packing files...");
 WScript.Sleep(3000);
 
 // Rename .zip to .tcx
