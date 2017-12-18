@@ -47,12 +47,9 @@ You can start and stop recording from your script or keyword tests.
 
 ### In Keyword Tests
 
-1. To start and stop recording, you use the **Start Video Recording** and **Stop Video Recording** operations that the VideoRecorder adds to TestComplete. You can find these operations in the Logging operation category. Simply drag these operations to your test:
+To start and stop recording, you use the **Start Video Recording** and **Stop Video Recording** operations that the VideoRecorder adds to TestComplete. You can find these operations in the Logging operation category. Simply drag these operations to your test:
+
   ![Using VideoRecorder in TestComplete keyword tests]()
-
-2. If needed, use the "Start" operation parameters to set the desired video quality: _Low_, _Normal_ or _High_. The default is _Normal_.
-
-  ![Settings video quality in keyword tests]()
 
 That's all. Now you can run your test. 
 
