@@ -113,7 +113,7 @@ This can happen rather frequent. For example, if the _[Stop on Error](https://su
 
 Possible workarounds:
 - Consider placing an additional "Stop Video Recording" command to the [`OnStopTest`](https://support.smartbear.com/testcomplete/docs/reference/events/onstoptest.html) event handler. That is, you will have two "Stop" commands: one in the place where you need to stop the recording, and another one in the OnStopTest event handler. This event is raised whenever the test execution stops, so placing the "Stop" command there can be a good idea. Note that it is important to check if the recorder is running before calling `Stop()`:
-  ```
+  ```JavaScript
   // JavaScript example
   function GeneralEvents_OnStopTest(Sender)
   {
