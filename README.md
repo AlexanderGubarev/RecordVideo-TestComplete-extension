@@ -49,7 +49,7 @@ You can start and stop recording from your script or keyword tests.
 
 To start and stop recording, you use the **Start Video Recording** and **Stop Video Recording** operations which VideoRecorder adds to TestComplete. You can find these operations in the Logging operation category. Simply drag these operations to your test:
 
-  ![Using VideoRecorder in TestComplete keyword tests]()
+  ![Using VideoRecorder in TestComplete keyword tests](./README.files/record-video-in-keyword-test.png)
 
 That's all. Now you can run your test. 
 
@@ -89,7 +89,7 @@ During its work, the recorder posts informative, warning and error messages to t
 
 Information on the recorded file name is available in the test log in both the "start" and "stop" messages. You can find the file name on the Additional Info tab:
 
-![VideoRecorder messages in the test log]()
+![VideoRecorder messages in the test log](./README.files/recorder-messages-in-test-log.png)
 
 The link to the recorded video is posted along with the "stop" message. The "start" message does not contain it, because the file does not exist at the moment of the start.
 
