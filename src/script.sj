@@ -95,6 +95,7 @@ function RecorderInfo() {
   };
 }
 
+// Predefined video quality settings
 function Presets() {
   var _normal = {
     name: "Normal",
