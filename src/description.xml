@@ -14,7 +14,7 @@
 						Returns true if the recorder is working, or false otherwise.
 					</Method>
 					<Description>
-						Records an .mp4 video of a test run. Uses the VLC video recorded.
+						Records a .mp4 video of a test run. Uses the VLC video recorder.
 					</Description>
 				</RuntimeObject>
 				<KDTOperation Name="Start Video Recording" Category="Logging" Icon="VideoStart-16.png">
