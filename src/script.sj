@@ -12,7 +12,7 @@ var logMessages = {
     message: "Unable to start video recording. The VLC recorder is already running. See Additional Info for details.",
     messageEx: "You need to stop the running instance of the VLC recorder before starting a new video recording session.\r\nIf you see the " + "%s" + ".exe process in the system, terminate it."
   },
-  startStartNoRecorderProcess: {
+  startNoRecorderProcess: {
     message: "Unable to start the video recorder. See Additional Info for details.",
     messageEx: "<p>Your test failed to start the video recorder. Something is wrong in the system.<p>" +
       "<p>To get more information:</p>" +
@@ -252,7 +252,7 @@ function RecorderEngine() {
     _cursorFile = new CursorFile();
     runStartCommand();
     if (!_recorderInfo.doesProcessExist(3000) /* Wait for 3 seconds for the recorder to start */) {
-      Log.Warning(logMessages.startStartNoRecorderProcess.message, aqString.Format(logMessages.startStartNoRecorderProcess.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
+      Log.Warning(logMessages.startNoRecorderProcess.message, aqString.Format(logMessages.startNoRecorderProcess.messageEx, _recorderInfo.getProcessName(), _recorderInfo.getPath(), getStartCommandArgs()));
       return "";
     }
 
