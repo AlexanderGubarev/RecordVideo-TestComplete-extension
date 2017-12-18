@@ -9,7 +9,7 @@ The extension uses JScript sources, but it is suitable for any supported scripti
 
 It records a video for your test runs, helping you to check the test execution and to understand what happened in your system and in the tested application during the test run.
 
-VideoRecorder is similar to Test Visualizer of TestComplete, but it provides more convenient results. While Test Visualizer captures images for test commands that simulate user actions, VideoRecorder creates a movie reflecting all the events, including those that occur between two commands. Also, it is easier to analyze a seamless video clip than a series of screenshots.
+VideoRecorder is similar to [Test Visualizer](https://support.smartbear.com/testcomplete/docs/testing-with/visualizer/about.html) of TestComplete, but it provides more convenient results. While Test Visualizer captures images for test commands that simulate user actions, VideoRecorder creates a movie reflecting all the events, including those that occur between two commands. Also, it is easier to analyze a seamless video clip than a series of screenshots.
 
 # When to Use
 Use VideoRecorder when it is difficult to understand the cause of an issue during automated test runs. For example, in some cases, it is really difficult to find the cause of issues that occur during nightly test runs. Videos can help you with this.
@@ -113,7 +113,7 @@ This can happen rather frequently. For example, if the _[Stop on Error](https://
 
 Possible workarounds:
 - Consider adding another "Stop Video Recording" command to the [`OnStopTest`](https://support.smartbear.com/testcomplete/docs/reference/events/onstoptest.html) event handler. That is, you will have two "Stop" commands: one in the place where you need to stop recording, and another in the OnStopTest event handler. This event is raised whenever the test execution stops, so placing the "Stop" command there can be a good idea. Note that it is important to check if the recorder is running before calling `Stop()`:
-  ```
+  ```JavaScript
   // JavaScript example
   function GeneralEvents_OnStopTest(Sender)
   {
