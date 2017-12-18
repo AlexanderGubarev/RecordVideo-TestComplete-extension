@@ -331,9 +331,9 @@ function Finalize() {
   gRecorderEngine.onFinalize();
 }
 
-/* ====================
-      Runtime scripting object
-    ==================== */
+//
+// Runtime scripting object
+//
 
 function RuntimeObject_Start(VideoQuality) {
   if (typeof Log === "undefined") { // Check if a test is running or not (to avoid issues with Code Completion)
@@ -359,9 +359,9 @@ function RuntimeObject_IsRecording() {
   return gRecorderEngine.isRecording();
 }
 
-/* ==================================
-      "Start video recording" keyword-test operation
-    ================================== */
+//
+// "Start video recording" keyword-test operation
+//
 
 function KDTStartOperation_OnCreate(Data, Parameters) {
   return true;
@@ -375,9 +375,9 @@ function KDTStartOperation_OnSetup(Data, Parameters) {
   return true;
 }
 
-/* ==================================
-      "Stop video recording" keyword-test operation
-    ================================== */
+//
+// "Stop video recording" keyword-test operation
+//
 
 function KDTStopOperation_OnCreate(Data, Parameters) {
   return true;
