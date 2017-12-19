@@ -165,7 +165,7 @@ function CursorFile() {
   if (!aqFile.Exists(_path)) {
     (function createCursorFile(size, color, format, path) {
       var picture = Sys.Desktop.Picture(0, 0, size, size);
-      var config = picture.CreatePictureConfiguration("png");
+      var config = picture.CreatePictureConfiguration(format);
       var i, j;
 
       config.CompressionLevel = 9;
@@ -176,7 +176,7 @@ function CursorFile() {
       }
 
       picture.SaveToFile(path, config);
-    })(12, 0x0000FF /* Red color */, _path);
+    })(12, 0x0000FF /* Red color */, "png", _path);
   }
 
   this.getPath = function () {
