@@ -14,7 +14,7 @@ VideoRecorder is similar to [Test Visualizer](https://support.smartbear.com/test
 # When to Use
 Use VideoRecorder when it is difficult to understand the cause of an issue during automated test runs. For example, in some cases, it is really difficult to find the cause of issues that occur during nightly test runs. Videos can help you with this.
 
-Note that videos can occupy a lot of space on your hard drive. Also, long videos may be inconvenient for analysis in comparison with short video clips. That is why we do not recommend that you record a video for the entire nightly test run. Do this for problematic areas only. You can easily achieve this by adding the **Start** and **Stop Video Recording** commands to the appropriate places in your tests (see [below](#in-keyword-tests)).
+Note that videos can occupy a lot of space on your hard drive. Also, long videos may be inconvenient for analysis in comparison with short video clips. That is why we do not recommend that you record a video for the entire nightly test run. Do this for problematic areas only. You can easily achieve this by adding the **Start** and **Stop Video Recording** commands to the appropriate places in your tests (see [below](#using-video-recorder)).
 
 # Video Recorder Engine
 The extension uses the recording functionality of the free, open-source VLC media player by VideoLAN.
@@ -41,11 +41,11 @@ It will pack the extension sources to the _`VideoRecorder.tcx`_ archive and copy
 
 Now you can launch the product and use the extension as you want.
 
+<a name="using-video-recorder"></a>
 # Using Video Recorder
 
 You can start and stop recording from your script or keyword tests.
 
-<a name="in-keyword-tests"></a>
 ### In Keyword Tests
 
 To start and stop recording, you use the **Start Video Recording** and **Stop Video Recording** operations which VideoRecorder adds to TestComplete. You can find these operations in the **Logging** operation category. Simply drag these operations to your test:
