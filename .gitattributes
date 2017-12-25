@@ -1,1 +1,2 @@
-﻿src/*.sj linguist-language=JavaScript
+src/* linguist-vendored
+src/*.sj linguist-language=JavaScript
