@@ -1,2 +1,2 @@
 src/* linguist-vendored
-script.sj linguist-language=JavaScript
+src/script.sj linguist-language=JavaScript
